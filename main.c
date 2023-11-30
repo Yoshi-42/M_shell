@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		cmd = readline("m_shell$> ");
 		cmds = parsing(cmd);
-		if(cmds == NULL)
+		if (cmds == NULL)
 			return (0);
 		//on split en tableau " " ' ' / Puis on gere les $ / split en list chainne pour les pipes
 		//

@@ -38,3 +38,4 @@ typedef struct s_list
 char	**parsing(char *cmd);
 char	**split(char *cmd, char c, int actualw, int nextw);
 char    **handle_quote(char **cmds);
+char	**handle_dollard(char **cmds);

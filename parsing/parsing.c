@@ -17,7 +17,9 @@ char	**parsing(char *cmd)
 	char	**cmds;
 
 	cmds = split(cmd, ' ', 0, 0);
-	//Rajouter ici la gestion des $ pour eviter les confusions " et '
+	// Finir de gerer les dollards
+	cmds = handle_dollard(cmds);
 	cmds = handle_quote(cmds);
+	// Rajouter le split pour les pipes
 	return (cmds);
 }
