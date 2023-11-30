@@ -1,9 +1,19 @@
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-
+# include "libft/libft.h"
 
 
 typedef struct s_env
@@ -41,3 +51,6 @@ int	count_args(char **str);
 char	**envp_cpy(char **envp);
 void m_pwd(void);
 int m_unset(char **cmds, t_env *env);
+int	ft_strcmp(char *s1, char *s2);
+
+#endif

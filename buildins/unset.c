@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orauline <orauline@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:07:42 by orauline          #+#    #+#             */
-/*   Updated: 2023/11/21 17:38:38 by orauline         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:43:32 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 /*
 1. Verifier si la variable d'environnement existe

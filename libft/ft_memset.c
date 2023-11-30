@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maouvrar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 13:37:42 by artmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 14:47:09 by bgonon           ###   ########.fr       */
+/*   Created: 2023/02/02 08:10:30 by maouvrar          #+#    #+#             */
+/*   Updated: 2023/02/03 08:39:28 by maouvrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
+#include <stddef.h>
 
-void	m_cd(char **cmds)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	chdir(cmds[1]);
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		*(char *)s = c;
+		s++;
+		i++;
+	}
+	return (s - i);
 }

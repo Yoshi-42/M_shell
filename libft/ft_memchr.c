@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maouvrar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 13:37:42 by artmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 14:47:09 by bgonon           ###   ########.fr       */
+/*   Created: 2023/02/03 17:25:20 by maouvrar          #+#    #+#             */
+/*   Updated: 2023/02/10 08:26:19 by maouvrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	m_cd(char **cmds)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	chdir(cmds[1]);
+	size_t	i;
+
+	i = 0;
+	while (i < n && *(unsigned char *)s != (unsigned char)c)
+	{
+		s++;
+		i++;
+	}
+	if (i == n)
+		return (NULL);
+	return ((char *)s);
 }

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void	add_to_env(char *cmd, t_env *env)
 {
@@ -30,79 +30,79 @@ void	add_to_env(char *cmd, t_env *env)
 	//free(updated_env);
 }
 
-int	m_export(char **cmds, t_env *env)
-{
-	int		i;
-	int		j;
-	int		found;
-	char	*equal;
-	char	*key_with_equal;
+// int	m_export(char **cmds, t_env *env)
+// {
+// 	int		i;
+// 	int		j;
+// 	int		found;
+// 	char	*equal;
+// 	char	*key_with_equal;
 
-	i = -1;
-	if (!cmds[1])
-	{
-		while (env->env_cpy[++i])
-			printf("env[%d] = %s\n", i, env->env_cpy[i]);
-	}
-	else
-	{
-		j = 0;
-		while (cmds[++j])
-		{
-			if (check_digit(cmds[j]))
-			{
-				printf("export: not an identifier: %s\n", cmds[j]);
-				break ;
-			}
-			found = 0;
-			//printf("cmd[%d] = %s\n", j, cmds[j]);
-			env->key = ft_strdup(cmds[j]);
-			i = -1;
-			//equal_found
-			if (ft_strchr(env->key, '='))
-			{
-				while (env->key[++i] != '=')
-					;
-				if (ft_strlen(env->key) + 1 == i)
-					return (1);
-				env->key[i] = '\0';
-			}
-			//equal_not_found
-			else if (!ft_strchr(env->key, '='))
-			{
-				equal = "=''";
-				printf("key before add equal: %s\n", env->key);
-				printf("equal: %s\n", equal);
-				while (env->key[++i] <= '=')
-					;
-				if (ft_strlen(env->key) + 2 == i)
-					return (1);
-				key_with_equal = ft_strncat(env->key, equal, ft_strlen(equal));
-				env->key = key_with_equal;
-				printf("key after add equal: %s\n", env->key);
-				add_to_env(key_with_equal, env);
-				//key[i] = '\0';
-			}
-			//printf("key = %s\n", key);
-			i = -1;
-			while (env->env_cpy[++i])
-			{
-				if (ft_strcmp(env->key, env->env_cpy[i]) == 0)
-				{
-					// printf("i pour free = %d\n", i);
-					printf("env->env_cpy[%d] = %s\n", i, env->env_cpy[i]);
-					//free(env->env_cpy[i]);
-					env->env_cpy[i] = ft_strdup(cmds[j]);
-					found = 1;
-					//return (0);
-				}
-			}
-			if (!found)
-				add_to_env(cmds[j], env);
-		}
-	}
-	return (0);
-}
+// 	i = -1;
+// 	if (!cmds[1])
+// 	{
+// 		while (env->env_cpy[++i])
+// 			printf("env[%d] = %s\n", i, env->env_cpy[i]);
+// 	}
+// 	else
+// 	{
+// 		j = 0;
+// 		while (cmds[++j])
+// 		{
+// 			if (check_digit(cmds[j]))
+// 			{
+// 				printf("export: not an identifier: %s\n", cmds[j]);
+// 				break ;
+// 			}
+// 			found = 0;
+// 			//printf("cmd[%d] = %s\n", j, cmds[j]);
+// 			env->key = ft_strdup(cmds[j]);
+// 			i = -1;
+// 			//equal_found
+// 			if (ft_strchr(env->key, '='))
+// 			{
+// 				while (env->key[++i] != '=')
+// 					;
+// 				if (ft_strlen(env->key) + 1 == i)
+// 					return (1);
+// 				env->key[i] = '\0';
+// 			}
+// 			//equal_not_found
+// 			else if (!ft_strchr(env->key, '='))
+// 			{
+// 				equal = "=''";
+// 				printf("key before add equal: %s\n", env->key);
+// 				printf("equal: %s\n", equal);
+// 				while (env->key[++i] <= '=')
+// 					;
+// 				if (ft_strlen(env->key) + 2 == i)
+// 					return (1);
+// 				key_with_equal = ft_strncat(env->key, equal, ft_strlen(equal));
+// 				env->key = key_with_equal;
+// 				printf("key after add equal: %s\n", env->key);
+// 				add_to_env(key_with_equal, env);
+// 				//key[i] = '\0';
+// 			}
+// 			//printf("key = %s\n", key);
+// 			i = -1;
+// 			while (env->env_cpy[++i])
+// 			{
+// 				if (ft_strcmp(env->key, env->env_cpy[i]) == 0)
+// 				{
+// 					// printf("i pour free = %d\n", i);
+// 					printf("env->env_cpy[%d] = %s\n", i, env->env_cpy[i]);
+// 					//free(env->env_cpy[i]);
+// 					env->env_cpy[i] = ft_strdup(cmds[j]);
+// 					found = 1;
+// 					//return (0);
+// 				}
+// 			}
+// 			if (!found)
+// 				add_to_env(cmds[j], env);
+// 		}
+// 	}
+// 	return (0);
+// }
 
 /* maintenant il faut gerer quand il y a plusieurs arguments
 quand le premier caractere de key est compris entre 0 et 9 ->

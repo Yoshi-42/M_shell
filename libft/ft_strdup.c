@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maouvrar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 13:37:42 by artmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 14:47:09 by bgonon           ###   ########.fr       */
+/*   Created: 2023/02/06 07:57:47 by maouvrar          #+#    #+#             */
+/*   Updated: 2023/02/10 08:31:18 by maouvrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <stdlib.h>
+#include "libft.h"
 
-void	m_cd(char **cmds)
+char	*ft_strdup(char *s)
 {
-	chdir(cmds[1]);
+	char	*ns;
+	int		i;
+
+	ns = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!ns)
+		return (0);
+	i = 0;
+	while (s[i] != 0)
+	{
+		ns[i] = s[i];
+		i++;
+	}
+	ns[i] = 0;
+	return (ns);
 }

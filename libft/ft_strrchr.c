@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maouvrar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 13:37:42 by artmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 14:47:09 by bgonon           ###   ########.fr       */
+/*   Created: 2023/02/08 12:27:09 by maouvrar          #+#    #+#             */
+/*   Updated: 2023/02/10 08:24:57 by maouvrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	m_cd(char **cmds)
+char	*ft_strrchr(const char *s, int c)
 {
-	chdir(cmds[1]);
+	int	i;
+
+	i = ft_strlen(s);
+	while (i >= 0)
+	{
+		if (s[i] == c)
+			return ((char *)(s + i));
+		i--;
+	}
+	return (0);
 }

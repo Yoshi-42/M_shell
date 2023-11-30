@@ -6,11 +6,11 @@
 /*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 10:11:57 by bgonon            #+#    #+#             */
-/*   Updated: 2023/11/10 11:52:17 by bgonon           ###   ########.fr       */
+/*   Updated: 2023/11/30 14:43:04 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	m_echo_n(char **cmd)
 {

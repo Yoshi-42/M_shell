@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-
-
 void print_tab(char **tableau) 
 {
 	int	i;
