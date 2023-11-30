@@ -1,9 +1,12 @@
-#include "../minishell.h"
+#include "minishell.h"
 
-//parcourir les chaines
-//si $ entrer dans une fonction qui va parcourir a partir du $ jusqu'au prochain $ ou espace
-//faire un strncmp de la chaine extraite avec chaque ligne de **env
-// si on trouve on entre dans une nouvelle fonction
+int	ft_isspace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	else
+		return (0);
+}
 
 int	long_doll(char *str)
 {
@@ -23,7 +26,7 @@ char	*ft_resize(char *str, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], str, ft_strlen(str) - 1) && env[ft_strlen(str)] == '=')
+		if (ft_strncmp(env[i], str, ft_strlen(str) - 1) && (env[i][ft_strlen(str)] == '='))
 		{
 			buff = ft_substr(env[i], ft_strlen(str) + 1, ft_strlen(env[i]));
 			return (buff);
@@ -34,13 +37,15 @@ char	*ft_resize(char *str, char **env)
 	return ("");
 }
 
-char	*ft_insert(char *src, char *app, int start)
+char	*ft_insert(char *src, char *app, int start, int size)
 {
 	char	*dest;
 	int		i;
+	int		j;
 
 	i = 0;
-	dest = malloc(sizeof(char) * ((ft_strlen(str) + ft_strlen(buff)) - ft_strlen(var)))
+	j = 0;
+	dest = malloc(sizeof(char) * ((ft_strlen(src) + ft_strlen(app)) - size));
 	while (dest[i])
 	{
 		while (i < start)
@@ -80,7 +85,7 @@ char	*ft_replace_var(char *str, char **env)
 			size = long_doll(&str[i + 1]);
 			var = ft_substr(str, i + 1, size);
 			buff = ft_resize(var, env);
-			dest = ft_insert(str, buff, i + 1);
+			dest = ft_insert(str, buff, i + 1, ft_strlen(var));
 			str = ft_strdup(dest);
 			i = 0;
 			continue;
@@ -93,10 +98,8 @@ char	*ft_replace_var(char *str, char **env)
 char	**ft_parkour(char **cmd, char **env)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (cmd[i])
 	{
 		i = 0;
@@ -104,4 +107,5 @@ char	**ft_parkour(char **cmd, char **env)
 			ft_replace_var(cmd[i], env);
 		i++; 
 	}
+	return (cmd);
 }
