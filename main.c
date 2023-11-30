@@ -54,13 +54,14 @@ int	m_exe(t_command cmd) //(char **cmd, char **envp)
 int	main(int argc, char ** argv, char **envp)
 {	
 	char		*cmd;
+	char		**cmds;
 	t_command	f_cmd;
 
 	while(1)
 	{
 		cmd = readline("m_shell$> ");
 		//on split en tableau " " ' ' / Puis on gere les $ / split en list chainne pour les pipes
-		//
+		m_exe_buildin(cmds, envp);
 		
 	}
 }
