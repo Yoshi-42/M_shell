@@ -22,7 +22,6 @@ int	check_is_var_env(char *cmd)
 	return (-1);
 }
 
-// Remplacer strlen par ft_strlen
 char	*destroy_dollard(char *cmd, char *del)
 {
 	char	*str;
@@ -33,7 +32,7 @@ char	*destroy_dollard(char *cmd, char *del)
 	a = 0;
 	i = 0;
 	b = 0;
-	str = malloc(sizeof(char) * (strlen(cmd) - strlen(del) + 1));
+	str = malloc(sizeof(char) * (ft_strlen(cmd) - ft_strlen(del) + 1));
 	while (cmd[i] != '\0')
 	{
 		if (cmd[i] == '$' && b == 0)
@@ -104,7 +103,6 @@ char	**handle_dollard(char **cmds)
 				j++;
 		}
 		j = 0;
-		printf("%s\n", cmds[i]);
 		i++;
 	}
 	return (cmds);

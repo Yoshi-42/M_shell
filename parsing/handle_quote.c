@@ -12,14 +12,13 @@
 
 #include "../minishell.h"
 
-//Strlen a modifier et a remplacer par celui de la libft
 char	*del_quote(char *cmd)
 {
 	char	*str;
 	int		i;
 
 	i = 1;
-	str = malloc(sizeof(char) * (strlen(cmd) - 1));
+	str = malloc(sizeof(char) * (ft_strlen(cmd) - 1));
 	while (cmd[i + 1] != '\0')
 	{
 		str[i - 1] = cmd[i];
@@ -51,7 +50,6 @@ char	**handle_quote(char **cmds)
 	while (cmds[i] != NULL)
 	{
 		cmds[i] = check_quote(cmds[i]);
-		printf("%s\n", cmds[i]);
 		i++;
 	}
 	return (cmds);

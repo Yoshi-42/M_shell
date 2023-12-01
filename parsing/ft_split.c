@@ -20,7 +20,7 @@ int	ft_strlcpy2(char *dst, char *src, int size)
 	int	length;
 
 	i = 0;
-	length = strlen(src);
+	length = ft_strlen(src);
 	if (!dst || !src)
 		return (0);
 	if (size == 0)
