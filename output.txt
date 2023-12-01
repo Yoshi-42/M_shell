@@ -1,0 +1,22 @@
+total 104
+drwxr-xr-x  4 maouvrar 2022_perpignan  4096 Dec  1 11:27 .
+drwxr-xr-x 12 maouvrar 2022_perpignan  4096 Nov 29 11:05 ..
+drwxr-xr-x  8 maouvrar 2022_perpignan  4096 Nov 30 08:53 .git
+-rw-r--r--  1 maouvrar 2022_perpignan    50 Nov 29 11:05 README.md
+-rw-r--r--  1 maouvrar 2022_perpignan    19 Nov 30 18:13 RUBIS
+-rw-r--r--  1 maouvrar 2022_perpignan  1234 Dec  1 09:47 SAPHIR
+-rwxr-xr-x  1 maouvrar 2022_perpignan 27512 Dec  1 11:27 a.out
+-rw-r--r--  1 maouvrar 2022_perpignan    31 Dec  1 09:30 bleu
+drwxr-xr-x  2 maouvrar 2022_perpignan  4096 Nov 29 11:08 build_in
+-rw-r--r--  1 maouvrar 2022_perpignan   739 Dec  1 10:33 debug.c
+-rw-r--r--  1 maouvrar 2022_perpignan  1234 Dec  1 09:47 diadem
+-rw-r--r--  1 maouvrar 2022_perpignan     0 Dec  1 09:28 fromage
+-rw-r--r--  1 maouvrar 2022_perpignan  1297 Dec  1 09:46 ft_strjoin.c
+-rw-r--r--  1 maouvrar 2022_perpignan   145 Dec  1 09:30 gingembre
+-rw-r--r--  1 maouvrar 2022_perpignan  2868 Dec  1 11:19 hello.txt
+-rw-r--r--  1 maouvrar 2022_perpignan     0 Nov 29 15:20 ko.c
+-rw-r--r--  1 maouvrar 2022_perpignan  1074 Nov 29 14:54 main.c
+-rw-r--r--  1 maouvrar 2022_perpignan   338 Nov 30 10:25 minishell.h
+-rw-r--r--  1 maouvrar 2022_perpignan     0 Dec  1 11:27 output.txt
+-rw-r--r--  1 maouvrar 2022_perpignan  3529 Dec  1 11:26 pipe.c
+-rw-r--r--  1 maouvrar 2022_perpignan  4412 Dec  1 11:18 redirect.c
