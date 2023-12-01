@@ -37,7 +37,7 @@ void	m_exe_buildin(char **cmds, char **envp)
 	else if (ft_strcmp(cmds[0], "env") == 0)
 		m_env(envp);
 	else if (ft_strcmp(cmds[0], "exit") == 0)
-		return;
+		m_exit(cmds, envp);
 	else
 		return ;
 }

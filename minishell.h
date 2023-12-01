@@ -53,4 +53,10 @@ void m_pwd(void);
 int m_unset(char **cmds, t_env *env);
 int	ft_strcmp(char *s1, char *s2);
 
+/*		PARSING		*/
+char	**parsing(char *cmd);
+char	**split(char *cmd, char c, int actualw, int nextw);
+char    **handle_quote(char **cmds);
+char	**handle_dollard(char **cmds);
+
 #endif
