@@ -15,13 +15,13 @@ int	long_doll(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		printf("str[i] == %c\n", str[i]);
+	//	printf("str[i] == %c\n", str[i]);
 		i++;
 		if (str[i] == '$')
 			return (i); 
 		if (ft_isspace(str[i]) == 1)
 			return (i);
-		printf("long_doll_i = %d\n", i);
+		//printf("long_doll_i = %d\n", i);
 	}
 	return (i);
 }
@@ -34,9 +34,9 @@ char	*ft_resize(char *str, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], &str[1], ft_strlen(&str[1]) - 1) == 0 && (env[i][ft_strlen(str) - 1] == '='))
+		if (ft_strncmp(env[i], str, ft_strlen(str)) == 0 && (env[i][ft_strlen(str)] == '='))
 		{
-			printf("dans la boucle du resize avec %s\n", env[i]);
+			//printf("dans la boucle du resize avec %s\n", env[i]);
 			buff = ft_substr(env[i], ft_strlen(str) + 1, ft_strlen(env[i]));
 			return (buff);
 		}
@@ -54,28 +54,28 @@ char	*ft_insert(char *src, char *app, int start, int size)
 
 	i = 0;
 	j = 0;
-	dest = malloc(sizeof(char) * ((ft_strlen(src) + ft_strlen(app)) - size));
+	dest = malloc(sizeof(char) * ((ft_strlen(src) + ft_strlen(app)) - (size)));
 
-		printf("boucle ft_insert\n");
+		//printf("boucle ft_insert\n");
 		while (i < start)
 		{
 			dest[i] = src[i];
 			i++;
 		}
-		printf("dest = %s\n", dest);
+		//printf("dest = %s\n", dest);
 		while (app[j])
 		{
 			dest[i] = app[j];
 			i++;
 			j++;
 		}
-		printf("dest = %s\n", dest);
-		while (src[i - j + size])
+		//printf("dest = %s\n", dest);
+		while (src[i - j + size + 1])
 		{
-			dest[i] = src[i - j + size];
+			dest[i] = src[i - j + size + 1];
 			i++;
 		}
-		printf("dest = %s\n", dest);
+		//printf("dest = %s\n", dest);
 
 	return (dest);
 }
@@ -95,10 +95,15 @@ char	*ft_replace_var(char *str, char **env)
 		if (str[i] == '$')
 		{
 			size = long_doll(&str[i + 1]); // a l'air ok
+			//printf("size = %i\n", size);
 			var = ft_substr(str, i + 1, size);
+			//printf("var = %s\n", var);
 			buff = ft_resize(var, env);
-			dest = ft_insert(str, buff, i + 1, ft_strlen(var));
+			//printf("buff = %s\n", buff);
+			dest = ft_insert(str, buff, i, ft_strlen(var));
+			//printf("dest = %s\n", dest);
 			str = ft_strdup(dest);
+			//printf("str = %s\n", str);
 			i = 0;
 			continue;
 		}
@@ -128,10 +133,10 @@ int	main(int argc, char **argv, char **env)
 	if (argc == 1)
 		return (0);
 	int i;
-	int	size;
-	char *var;
-	char *buff;
-	char *dest;
+	// int	size;
+	// char *var;
+	// char *buff;
+	// char *dest;
 	char *str;
 	int	j;
 
@@ -144,17 +149,20 @@ int	main(int argc, char **argv, char **env)
 		printf("%s\n", env[i]);
 		i++;
 	}
-	printf("j = %d\n", j);
-	size = long_doll(&argv[1][j]); // a l'air ok
-	printf("size = %i\n", size);
-	var = ft_substr(argv[1], j, size);
-	printf("var = %s\n", var);
-	buff = ft_resize(var, env);
-	printf("buff = %s\n", buff);
-	dest = ft_insert(argv[1], buff, j, ft_strlen(var));
-	printf("dest = %s\n", dest);
-	str = ft_strdup(dest);
+	// printf("j = %d\n", j);
+	// size = long_doll(&argv[1][j]); // a l'air ok
+	// printf("size = %i\n", size);
+	// var = ft_substr(argv[1], j, size);
+	// printf("var = %s\n", var);
+	// buff = ft_resize(var, env);
+	// printf("buff = %s\n", buff);
+	// dest = ft_insert(argv[1], buff, j, ft_strlen(var));
+	// printf("dest = %s\n", dest);
+	// str = ft_strdup(dest);
+	// printf("str = %s\n", str);
+	str = ft_replace_var(argv[1], env);
 	printf("str = %s\n", str);
+
 	
 	return(0);
 }
