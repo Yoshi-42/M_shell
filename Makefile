@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror
 RM = rm
 RMFLAG = -f
 
-SRCS = main.c parsing/ft_split.c parsing/handle_dollard.c parsing/handle_quote.c parsing/parsing.c history/handle_history.c
+SRCS = main.c debug.c parsing/ft_split.c parsing/handle_dollard.c parsing/handle_quote.c parsing/parsing.c history/handle_history.c buildins/buildin.c buildins/cd.c buildins/echo.c buildins/env.c buildins/export.c buildins/export_utils.c buildins/pwd.c buildins/unset.c buildins/exit.c parsing/ft_moula.c signal/signal.c parsing/ft_split_pipe.c
 
 LIBFT = libft/libft.a
 

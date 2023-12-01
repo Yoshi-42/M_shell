@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_main.c                                     :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 00:49:31 by artmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 00:49:32 by artmarti         ###   ########.fr       */
+/*   Created: 2023/11/30 12:22:37 by artmarti          #+#    #+#             */
+/*   Updated: 2023/11/30 12:22:38 by artmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**parsing(char *cmd, char **env)
+void	m_env(char **envp)
 {
-	char	**cmds;
+	int	i;
 
-	cmds = split(cmd, ' ', 0, 0);
-	cmds = ft_parkour(cmds, env);
-	cmds = handle_quote(cmds);
-	return (cmds);
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
 }

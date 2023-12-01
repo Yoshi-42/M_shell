@@ -12,26 +12,6 @@
 
 #include "minishell.h"
 
-/*#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-typedef struct s_env
-{
-	char **env_cpy;
-	char *key;
-	char *value;
-} t_env;
-
-typedef struct s_command
-{
-	char	**cmd;
-	int		fd_i;
-	int		fd_o;
-	int		status;
-	t_env	env;
-}	t_command;*/
-
 int	m_exe(t_command cmd) //(char **cmd, char **envp)
 {
 	 pid_t	child_pid;
@@ -66,19 +46,27 @@ int	main(int argc, char ** argv, char **envp)
 {	
 	char		*cmd;
 	char		**cmds;
-//	t_command	f_cmd;
+	t_command	*pipe_cmd;
+	//t_command	f_cmd;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	signal(SIGINT, ft_ctrlc);
+	signal(SIGQUIT, ft_ctrlslash);
 	while(1)
 	{
 		cmd = readline("m_shell$> ");
-		cmds = parsing(cmd);
+		if (cmd == NULL)
+			break ;
+		cmds = parsing(cmd, envp);
 		if (cmds == NULL)
 			return (0);
+		m_exe_buildin(cmds, envp);
+		pipe_cmd = ft_create_nodes(cmds);
+		//print_link(pipe_cmd);
 		//on split en tableau " " ' ' / Puis on gere les $ / split en list chainne pour les pipes
-		//
+
 		handle_history(cmd);
 	}
 	return (0);

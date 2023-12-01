@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_main.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 00:49:31 by artmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 00:49:32 by artmarti         ###   ########.fr       */
+/*   Created: 2023/12/01 14:14:34 by artmarti          #+#    #+#             */
+/*   Updated: 2023/12/01 14:14:35 by artmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**parsing(char *cmd, char **env)
+void	m_pwd(void)
 {
-	char	**cmds;
+	char	*s;
+	size_t	size;
 
-	cmds = split(cmd, ' ', 0, 0);
-	cmds = ft_parkour(cmds, env);
-	cmds = handle_quote(cmds);
-	return (cmds);
+	size = 2042;
+	s = malloc((size + 1) * sizeof(char));
+	if (s == NULL)
+		exit(EXIT_FAILURE);
+	getcwd(s, size);
+	if (getcwd(s, size) == NULL)
+		exit(EXIT_FAILURE);
+	printf("%s\n", s);
+	free(s);
 }
