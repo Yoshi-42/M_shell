@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror
 RM = rm
 RMFLAG = -f
 
-SRCS = main.c
+SRCS = main.c parsing/ft_split.c parsing/handle_dollard.c parsing/handle_quote.c parsing/parsing.c history/handle_history.c
 
 LIBFT = libft/libft.a
 
