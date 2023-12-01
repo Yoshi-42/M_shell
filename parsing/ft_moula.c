@@ -96,21 +96,19 @@ char	*ft_replace_var(char *str, char **env)
 		if (str[i] == '$')
 		{
 			size = long_doll(&str[i + 1]); // a l'air ok
-			printf("size = %i\n", size);
 			var = ft_substr(str, i + 1, size);
-			printf("var = %s\n", var);
 			buff = ft_resize(var, env);
-			printf("buff = %s\n", buff);
 			dest = ft_insert(str, buff, i, ft_strlen(var));
-			printf("dest = %s\n", dest);
 			str = ft_strdup(dest);
-			printf("str = %s\n", str);
 			i = 0;
 			continue;
 		}
 		i++;
 	}
 	//rajouter les free
+	free(var);
+	free(buff);
+	free(dest);
 	return (str);
 }
 
@@ -125,7 +123,6 @@ char	**ft_parkour(char **cmd, char **env)
 			cmd[i] = ft_replace_var(cmd[i], env);
 		i++; 
 	}
-	i = 0;
 	return (cmd);
 }
 /*

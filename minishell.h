@@ -51,7 +51,7 @@ char	**handle_quote(char **cmds);
 char	**handle_dollard(char **cmds);
 char	**ft_parkour(char **cmd, char **env);
 t_list  *pipe_split(char **cmds, char ***envp);
-t_command	*ft_create_nodes(char **cmd);
+t_command	*ft_create_nodes(char **cmd, char **env);
 
 /*		HISTORY		*/
 void	handle_history(char *cmd);
@@ -77,5 +77,11 @@ void	ft_ctrlslash(int sign);
 
 /*		DEBUG		*/
 void print_tab(char **tableau);
+
+/*		REDIR		*/
+int	redirect(t_command cmd, int p_i, int p_o);
+
+/*		PIPE		*/
+int	fake_tree(t_command *l_cmd);
 
 #endif
