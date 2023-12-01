@@ -6,7 +6,7 @@
 /*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 14:06:37 by orauline          #+#    #+#             */
-/*   Updated: 2023/12/01 18:27:03 by orauline         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:52:32 by orauline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void	add_to_env(char *cmd, t_env *env)
 	updated_env = malloc(sizeof(char *) * (len + 1));
 	if (!updated_env)
 		return ;
-	updated_env[len] = strdup(cmd);
+	updated_env[len] = ft_strdup(cmd);
 	updated_env[len + 1] = NULL;
 	while (env->env_cpy[++i])
-		updated_env[i] = strdup(env->env_cpy[i]);
+		updated_env[i] = ft_strdup(env->env_cpy[i]);
 	free(env->env_cpy);
 	env->env_cpy = updated_env;
 }
@@ -49,11 +49,11 @@ static void	process_key(char *key, t_env *env)
 {
 	char	*equal;
 
-	equal = strchr(key, '=');
+	equal = ft_strchr(key, '=');
 	if (!equal)
 	{
 		equal = "=''";
-		key = strncat(strdup(key), equal, strlen(equal));
+		key = ft_strncat(ft_strdup(key), equal, ft_strlen(equal));
 		add_to_env(key, env);
 		free(key);
 	}
@@ -76,14 +76,14 @@ static void	update_env(char *cmd, t_env *env)
 		return ;
 	}
 	i = -1;
-	key = strdup(cmd);
+	key = ft_strdup(cmd);
 	process_key(key, env);
 	while (env->env_cpy[++i])
 	{
-		if (strcmp(key, env->env_cpy[i]) == 0)
+		if (ft_strcmp(key, env->env_cpy[i]) == 0)
 		{
 			free(env->env_cpy[i]);
-			env->env_cpy[i] = strdup(cmd);
+			env->env_cpy[i] = ft_strdup(cmd);
 			free(key);
 			return ;
 		}
