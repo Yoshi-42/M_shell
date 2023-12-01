@@ -26,21 +26,21 @@ int	check_is_var_env(char *cmd)
 char	*destroy_dollard(char *cmd, char *del)
 {
 	char	*str;
-	int	a;
-	int	i;
-	int	b;
+	int		a;
+	int		i;
+	int		b;
 
 	a = 0;
 	i = 0;
 	b = 0;
 	str = malloc(sizeof(char) * (strlen(cmd) - strlen(del) + 1));
-	while(cmd[i] != '\0')
+	while (cmd[i] != '\0')
 	{
-		if(cmd[i] == '$' && b == 0)
+		if (cmd[i] == '$' && b == 0)
 		{
 			i++;
 			b = 1;
-			while(cmd[i] != '\0' && cmd[i] != '$' && cmd[i] != ' ')
+			while (cmd[i] != '\0' && cmd[i] != '$' && cmd[i] != ' ')
 				i++;
 		}
 		str[a] = cmd[i];
@@ -48,7 +48,7 @@ char	*destroy_dollard(char *cmd, char *del)
 		a++;
 	}
 	str[a] = '\0';
-	return(str);
+	return (str);
 }
 
 // Cette fonction remplace le mot $ par la variable existante
@@ -60,13 +60,13 @@ char	*destroy_dollard(char *cmd, char *del)
 char	*check_dollard(char *cmd, int i)
 {
 	char	*str;
-	int	j;
-	int	a;
-	int	check_var;
+	int		j;
+	int		a;
+	int		check_var;
 
 	a = 0;
 	j = i;
-	while(cmd[j] != '\0' && cmd[j] != '$' && cmd[j] != ' ')
+	while (cmd[j] != '\0' && cmd[j] != '$' && cmd[j] != ' ')
 		j++;
 	str = malloc(sizeof(char) * j - i + 1);
 	while (i < j)
@@ -81,7 +81,7 @@ char	*check_dollard(char *cmd, int i)
 		cmd = destroy_dollard(cmd, str);
 	else
 		cmd = NULL;//replace_dollard(cmd, str, check_var);
-	return(cmd);
+	return (cmd);
 }
 
 char	**handle_dollard(char **cmds)
@@ -93,7 +93,7 @@ char	**handle_dollard(char **cmds)
 	j = 0;
 	while (cmds[i] != NULL)
 	{
-		while(cmds[i][j] != '\0')
+		while (cmds[i][j] != '\0')
 		{
 			if (cmds[i][j] == '$')
 			{

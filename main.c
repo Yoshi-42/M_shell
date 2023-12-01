@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 13:41:45 by artmarti          #+#    #+#             */
+/*   Updated: 2023/12/01 13:41:46 by artmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*#include <stdio.h>
@@ -20,11 +32,10 @@ typedef struct s_command
 	t_env	env;
 }	t_command;*/
 
-
 int	m_exe(t_command cmd) //(char **cmd, char **envp)
 {
-	 pid_t child_pid;
-	 int status;
+	 pid_t	child_pid;
+	 int	status;
 	 //cmd.cmd = format(cmd.cmd);
 	 child_pid = fork();
 	if (child_pid == -1)
