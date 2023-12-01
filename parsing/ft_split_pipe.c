@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_pipe.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 20:21:40 by artmarti          #+#    #+#             */
+/*   Updated: 2023/12/01 20:21:41 by artmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **ft_split_pipe(char **cmd)
+char	**ft_split_pipe(char **cmd)
 {
-	int	start;
-	int	end;
-	int	size;
-	char **dest;
+	int		start;
+	int		end;
+	int		size;
+	char	**dest;
 
 	size = 0;
 	while (cmd[size])
@@ -30,10 +41,10 @@ char **ft_split_pipe(char **cmd)
 	return (dest);
 }
 
-char **tabtab_strdup(char **tab)
+char	**tabtab_strdup(char **tab)
 {
-	int	i;
-	char **dest;
+	int		i;
+	char	**dest;
 
 	i = 0;
 	while (tab[i])
@@ -48,7 +59,6 @@ char **tabtab_strdup(char **tab)
 	dest[i] = NULL;
 	return (dest);
 }
-
 
 int	ft_count_pipe(char **cmd)
 {
@@ -67,10 +77,10 @@ int	ft_count_pipe(char **cmd)
 
 t_command	*ft_create_nodes(char **cmd, char **env)
 {
-	int	n;
+	int			n;
 	t_command	*node;
-	int i;
-	int	j;
+	int			i;
+	int			j;
 
 	i = 0;
 	j = 1;

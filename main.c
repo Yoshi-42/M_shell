@@ -42,27 +42,28 @@
 // 	return (0);
 // }
 
-int	main(int argc, char ** argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {	
 	char		*cmd;
 	char		**cmds;
 	t_command	*pipe_cmd;
-//	t_command	f_cmd;
+	t_env		env;
 
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, ft_ctrlslash);
-	while(1)
+	env.env_cpy = envp_cpy(envp);
+	while (1)
 	{
 		cmd = readline("m_shell$> ");
 		if (cmd == NULL)
 			break ;
-		cmds = parsing(cmd, envp);
+		cmds = parsing(cmd, env.env_cpy);
 		if (cmds == NULL)
 			return (0);
-		m_exe_buildin(cmds, envp);
-		pipe_cmd = ft_create_nodes(cmds, envp);
+		m_exe_buildin(cmds, &env);
+		pipe_cmd = ft_create_nodes(cmds, env.env_cpy);
 		fake_tree(pipe_cmd);
 		handle_history(cmd);
 	}

@@ -45,43 +45,51 @@ typedef struct s_list
 }	t_list;
 
 /*		PARSING		*/
-char	**parsing(char *cmd, char **env);
-char	**split(char *cmd, char c, int actualw, int nextw);
-char	**handle_quote(char **cmds);
-char	**handle_dollard(char **cmds);
-char	**ft_parkour(char **cmd, char **env);
-t_list  *pipe_split(char **cmds, char ***envp);
+char		**parsing(char *cmd, char **env);
+char		**split(char *cmd, char c, int actualw, int nextw);
+char		**handle_quote(char **cmds);
+char		**handle_dollard(char **cmds);
+char		**ft_parkour(char **cmd, char **env);
+t_list		*pipe_split(char **cmds, char ***envp);
 t_command	*ft_create_nodes(char **cmd, char **env);
 
 /*		HISTORY		*/
-void	handle_history(char *cmd);
+void		handle_history(char *cmd);
 
 /*		BUILDINS	*/
-void	m_exe_buildin(char **cmds, char **envp);
-int	m_export(char **cmds, t_env *env);
-void	m_cd(char **cmds);
-void	m_echo_n(char **cmd);
-char	*ft_strncat(char *dest, char *src, unsigned int nb);
-void	m_env(char **envp);
-int	check_digit(char *str);
-int	count_args(char **str);
-char	**envp_cpy(char **envp);
-void m_pwd(void);
-int m_unset(char **cmds, t_env *env);
-int	ft_strcmp(char *s1, char *s2);
-void	m_exit(char **cmds, char **envp);
+void		m_exe_buildin(char **cmds, t_env *env);
+int			m_export(char **cmds, t_env *env);
+void		m_cd(char **cmds);
+void		m_echo_n(char **cmd);
+char		*ft_strncat(char *dest, char *src, unsigned int nb);
+void		m_env(char **envp);
+int			check_digit(char *str);
+int			count_args(char **str);
+char		**envp_cpy(char **envp);
+void		m_pwd(void);
+int			m_unset(char **cmds, t_env *env);
+int			ft_strcmp(char *s1, char *s2);
+void		m_exit(char **cmds, char **envp);
+char		**envp_cpy(char **envp);
 
 /*		SIGNAL		*/
-void	ft_ctrlc(int sign);
-void	ft_ctrlslash(int sign);
+void		ft_ctrlc(int sign);
+void		ft_ctrlslash(int sign);
 
 /*		DEBUG		*/
-void print_tab(char **tableau);
+void		print_tab(char **tableau);
 
 /*		REDIR		*/
-int	redirect(t_command cmd, int p_i, int p_o);
+int			all_nodes(t_command cmd, t_command cmd_exe, int p_i, int p_o);
+int			heredoc(char *eof);
+int			redirect(t_command cmd, int p_i, int p_o);
+t_command	*format_exe(t_command cmd);
+int			verfi_word(const char *word, const char *verif);
 
 /*		PIPE		*/
-int	fake_tree(t_command *l_cmd);
+int			fake_tree(t_command *l_cmd);
+
+/*		UTILS		*/
+int			ft_isspace(char c);
 
 #endif

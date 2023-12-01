@@ -28,7 +28,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-void	m_exe_buildin(char **cmds, char **envp)
+void	m_exe_buildin(char **cmds, t_env *env)
 {
 	if (ft_strcmp(cmds[0], "echo") == 0)
 		m_echo_n(cmds);
@@ -37,9 +37,13 @@ void	m_exe_buildin(char **cmds, char **envp)
 	else if (ft_strcmp(cmds[0], "pwd") == 0)
 		m_pwd();
 	else if (ft_strcmp(cmds[0], "env") == 0)
-		m_env(envp);
+		m_env(env->env_cpy);
+	else if (ft_strcmp(cmds[0], "export") == 0)
+		m_export(cmds, env);
+	else if (ft_strcmp(cmds[0], "unset") == 0)
+		m_unset(cmds, env);
 	else if (ft_strcmp(cmds[0], "exit") == 0)
-		m_exit(cmds, envp);
+		m_exit(cmds, env->env_cpy);
 	else
 		return ;
 }

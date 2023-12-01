@@ -16,6 +16,5 @@ void	m_exit(char **cmds, char **envp)
 {
 	(void)cmds;
 	(void)envp;
-	//ft_free_all();
 	exit(0);
 }

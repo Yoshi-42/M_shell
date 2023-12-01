@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:07:42 by orauline          #+#    #+#             */
-/*   Updated: 2023/11/30 14:43:32 by bgonon           ###   ########.fr       */
+/*   Updated: 2023/12/01 18:23:01 by orauline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,67 @@
 3. Copier toutes les variables d'environnement sauf celle a supprimer
 4. Allouer de la memoire pour la nouvelle table d'environnement
 5. Copier les variables d'environnement dans la nouvelle table
-6. Mettre a jour l'environnement en effacant l'environnement actuel et en mettamt a jour la table
-7. Gerer le cas si la suppression a echoue avec perrror
+6. Mettre a jour l'environnement en effacant l'environnement actuel et
+en mettamt a jour la table
 */
 
-int m_unset(char **cmds, t_env *env)
+static void	remove_env_var(char *key, t_env *env)
 {
 	int	i;
-	int	j;
 
 	i = -1;
-	if (!cmds[1])
-		printf("unset: not enough arguments\n");
-	else
+	while (env->env_cpy[++i])
 	{
-		j = 0;
-		while (cmds[++j])
+		if (ft_strcmp(key, env->env_cpy[i]) == 0)
 		{
-			if (check_digit(cmds[j]))
+			free(env->env_cpy[i]);
+			while (env->env_cpy[i + 1])
 			{
-				printf("unset: %s: invalid parameter name\n", cmds[j]);
-				break ;
+				env->env_cpy[i] = env->env_cpy[i + 1];
+				i++;
 			}
-			env->key = ft_strdup(cmds[j]);
-			i = -1;
-			if (ft_strchr(env->key, '='))
-			{
-				while (env->key[++i] != '=')
-					;
-				if (ft_strlen(env->key) + 1 == i)
-					return (1);
-				env->key[i] = '\0';
-			}
-			while (env->env_cpy[++i])
-			{
-				if (ft_strcmp(env->key, env->env_cpy[i]) == 0)
-					free(env->env_cpy[i]);
-			}
+			env->env_cpy[i] = NULL;
+			return ;
 		}
+	}
+}
+
+static int	err_not_enough_args(void)
+{
+	printf("unset: not enough arguments\n");
+	return (1);
+}
+
+static int	err_invalid_params(char *cmds)
+{
+	printf("unset: %s: invalid parameter name\n", cmds);
+	return (1);
+}
+
+int	m_unset(char **cmds, t_env *env)
+{
+	int	j;
+	int	i;
+
+	if (!cmds[1])
+		err_not_enough_args();
+	j = 1;
+	while (cmds[j])
+	{
+		if (check_digit(cmds[j]))
+			err_invalid_params(cmds[j]);
+		env->key = ft_strdup(cmds[j]);
+		if (ft_strchr(env->key, '='))
+		{
+			i = -1;
+			while (env->key[++i] != '=')
+				;
+			if (ft_strlen(env->key) + 1 == i)
+				return (1);
+			env->key[i] = '\0';
+		}
+		remove_env_var(env->key, env);
+		j++;
 	}
 	return (0);
 }

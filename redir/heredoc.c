@@ -1,21 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 20:37:12 by artmarti          #+#    #+#             */
+/*   Updated: 2023/12/01 20:37:29 by artmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int heredoc(char *EOF)
+int	heredoc(char *eof)
 {
 	int		pipefd[2];
 	char	*input;
 
-	if (pipe(pipefd) == -1) {
+	if (pipe(pipefd) == -1)
+	{
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
-	while (1) 
+	while (1)
 	{
 		input = readline("heredoc>");
-		if (ft_strcmp(input, EOF, ft_strlen(EOF)) == 0 && ft_strlen(EOF) == ft_strlen(input)) 
+		if (ft_strncmp(input, eof, ft_strlen(eof)) == 0 && ft_strlen(eof) == ft_strlen(input))
 		{
 			free(input);
-			break;
+			break ;
 		}
 		write(pipefd[1], input, strlen(input));
 		write(pipefd[1], "\n", 1);

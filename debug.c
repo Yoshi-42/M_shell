@@ -1,14 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 20:19:23 by artmarti          #+#    #+#             */
+/*   Updated: 2023/12/01 20:19:24 by artmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-
-
-void print_tab(char **tableau) 
+void	print_tab(char **tableau)
 {
 	int	i;
-	
+
 	i = 0;
-	while (tableau[i] != NULL) {
-		printf("%s\n", tableau[i]);  // Afficher chaque mot
+	while (tableau[i] != NULL)
+	{
+		printf("%s\n", tableau[i]);
 		i++;
 	}
 }
