@@ -1,8 +1,5 @@
 #include "../minishell.h"
 
-void print_tab(char **tableau) ;
-char	*ft_strjoin(char const *s1, char const *s2);
-
 int	m_exe(t_command cmd) //(char **cmd, char **envp)
 {
 	pid_t child_pid;
@@ -106,27 +103,16 @@ t_command	*format_exe(t_command cmd)
 
 void	exe_node(t_command cmd, int in, int out)
 {
-	/*printf("////////START Command START///////\n");
-	print_tab(cmd.cmd);
-	printf(" fd in : %i :::::: fd out : %i\n", in, out);
-	printf("////////END Command END///////\n");*/
-	// close(out);
-	// on garde les fd out et in de base
 	int origin_fd = dup(STDOUT_FILENO);
 	int ori_fd_in = dup(STDIN_FILENO);
-	// on verifie si le in ou le out doit etre modifier et on le modifier
 	if (in > 0)
 		dup2(in, 0);
 	if (out > 0)
 		dup2(out, 1);
-	// on execute le programme
 	m_exe(cmd);
-	// on remet les fd en place
 	dup2(origin_fd, 1);
 	dup2(ori_fd_in, 0);
 }
-
-
 
 int	all_nodes_no_enter(t_command cmd,t_command cmd_exe, int p_i , int p_o)
 {
@@ -137,7 +123,10 @@ int	all_nodes_no_enter(t_command cmd,t_command cmd_exe, int p_i , int p_o)
 	i = 0;
 	flag = 0;
 	if (p_o != -1)
+	{
 		exe_node(cmd_exe, p_i, p_o);
+		flag++;
+	}
 	while (cmd.cmd[i] != NULL)
 	{
 		if (verfi_word(cmd.cmd[i], ">") || verfi_word(cmd.cmd[i], ">>"))
@@ -163,8 +152,6 @@ int	all_nodes_no_enter(t_command cmd,t_command cmd_exe, int p_i , int p_o)
 	return (0);
 }
 
-
-
 int	all_nodes(t_command cmd,t_command cmd_exe, int p_i, int p_o)
 {
 	int	i;
@@ -173,9 +160,9 @@ int	all_nodes(t_command cmd,t_command cmd_exe, int p_i, int p_o)
 	
 	i = 0;
 	flag = 0;
-	if (p_i != -1)//si j'ai un p_i
+	if (p_i != -1)
 	{
-		all_nodes_no_enter(cmd, cmd_exe, p_i, p_o);//return en cas d'erreur
+		all_nodes_no_enter(cmd, cmd_exe, p_i, p_o);
 		flag++;
 	}
 	while (cmd.cmd[i] != NULL)
@@ -186,8 +173,8 @@ int	all_nodes(t_command cmd,t_command cmd_exe, int p_i, int p_o)
 					return (-1);
 			if (verfi_word(cmd.cmd[i], "<"))
 				fd_in = open(cmd.cmd[i + 1], O_RDONLY | O_CREAT , 0666);
-			//else
-				//fd_in =  heredoc
+			else
+				fd_in = heredoc(cmd.cmd[i + 1]);
 			if (fd_in ==  -1)
 				perror("ERREUR DE FICHIER");
 			all_nodes_no_enter(cmd, cmd_exe, fd_in, p_o);
@@ -195,32 +182,15 @@ int	all_nodes(t_command cmd,t_command cmd_exe, int p_i, int p_o)
 		}
 		i++;
 	}
-	if(flag == 0){
-		all_nodes_no_enter(cmd, cmd_exe, 0, p_o);
-	}
-		
+	if(flag == 0)
+		all_nodes_no_enter(cmd, cmd_exe, -1, p_o);		
 	return (0);
-}
-
-
-int	create_nodes(t_command cmd, int p_i, int p_o)
-{
-	t_command	*cmd_exe;
-
-
-	cmd_exe = format_exe(cmd);
-	//mettre l'environnement
-	//verifier si p_i different de -1 && si il n'y a pas de redirection d'entre
-//	if (p_i == -1 && is_enter_redirect(cmd.cmd) == 0)
-//		return (all_nodes_no_enter(cmd, *cmd_exe, p_i, p_o));
-//	else //ca veux dire qu'il y a des entree
-	return (all_nodes(cmd, *cmd_exe, p_i, p_o));
 }
 
 int	redirect(t_command cmd, int p_i, int p_o)
 {
-	//t_command	*cmd_exe;
+	t_command	*cmd_exe;
 
-	//cmd_exe = format_exe(cmd);
-	return (create_nodes(cmd, p_i, p_o));
+	cmd_exe = format_exe(cmd);
+	return (all_nodes(cmd, *cmd_exe, p_i, p_o));
 }
