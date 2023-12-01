@@ -1,4 +1,5 @@
-
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -10,6 +11,8 @@
 #include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+
+#include "libft/libft.h"
 
 typedef struct s_env
 {
@@ -39,3 +42,5 @@ char	**parsing(char *cmd);
 char	**split(char *cmd, char c, int actualw, int nextw);
 char    **handle_quote(char **cmds);
 char	**handle_dollard(char **cmds);
+
+#endif
