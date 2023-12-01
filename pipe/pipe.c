@@ -34,7 +34,7 @@ int	fake_tree(t_command *l_cmd)
     while (l_cmd[i + 1].cmd != NULL)
 	{
 		//print_tab(index->cmd->cmd);
-		pipe(fd_pipe);
+        pipe(fd_pipe);
 		fd_out = fd_pipe[0];
 		//printf("pipe sorti : %i\n", fd_out);
 		//m_pipe(index->cmd);
@@ -45,12 +45,10 @@ int	fake_tree(t_command *l_cmd)
         i++;
 		close(fd_out);
 	}
-    printf("Diamant\n");
-
-		printf("+++++++++++++++++++++++++++++++++++++++\n");
-		print_tab(l_cmd->cmd);
-		printf("++++++++++++++++++++++++++++++++++++++++\n");
 	//redirect(*index->cmd, fd_in, -1);
+    printf("%s\n", l_cmd[i].cmd[0]);
+    printf("%s\n", l_cmd[i].cmd[1]);
+    //printf("%s\n", l_cmd[i].cmd[2]);
     redirect(l_cmd[i], fd_in, -1);
 	//m_pipe(index->cmd);
 

@@ -84,7 +84,7 @@ t_command	*format_exe(t_command cmd)
 	t_command	*format;
 
 	format = malloc(sizeof(t_command));
-	format->cmd = malloc(sizeof(char *) * nb_word(cmd.cmd));
+	format->cmd = malloc(sizeof(char *) * (nb_word(cmd.cmd) + 1));
 	i = 0;
 	j = 0;
 	while(cmd.cmd[i] != NULL)
@@ -100,6 +100,7 @@ t_command	*format_exe(t_command cmd)
 		if(cmd.cmd[i] != NULL)
 			i++;
 	}
+	format->cmd[j] = NULL;
 	return (format);
 }
 
@@ -214,8 +215,6 @@ int	create_nodes(t_command cmd, int p_i, int p_o)
 //		return (all_nodes_no_enter(cmd, *cmd_exe, p_i, p_o));
 //	else //ca veux dire qu'il y a des entree
 	return (all_nodes(cmd, *cmd_exe, p_i, p_o));
-	
-	return (0);
 }
 
 int	redirect(t_command cmd, int p_i, int p_o)
@@ -224,5 +223,4 @@ int	redirect(t_command cmd, int p_i, int p_o)
 
 	//cmd_exe = format_exe(cmd);
 	return (create_nodes(cmd, p_i, p_o));
-	return(p_i);
 }
