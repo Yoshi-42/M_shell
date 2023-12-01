@@ -42,5 +42,11 @@ char	**parsing(char *cmd);
 char	**split(char *cmd, char c, int actualw, int nextw);
 char    **handle_quote(char **cmds);
 char	**handle_dollard(char **cmds);
+int		ft_isspace(char c);
+int		long_doll(char *str);
+char	*ft_resize(char *str, char **env);
+char	*ft_insert(char *src, char *app, int start, int size);
+char	*ft_replace_var(char *str, char **env);
+char	**ft_parkour(char **cmd, char **env);
 
 #endif
