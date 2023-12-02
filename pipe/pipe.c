@@ -19,7 +19,10 @@ int	fake_tree(t_command *l_cmd)
 	int	fd_out;
 	int	*fd_pipe;
 
-	fd_pipe = malloc(sizeof(int) * 2);
+	//fd_pipe = malloc(sizeof(int) * 2);
+	fd_pipe = (int *)ft_calloc(2, sizeof(int));
+	if (!fd_pipe)
+		return (-1);
 	fd_in = -1;
 	fd_out = -1;
 	i = 0;
@@ -35,5 +38,6 @@ int	fake_tree(t_command *l_cmd)
 		close(fd_out);
 	}
 	redirect(l_cmd[i], fd_in, -1);
+	free(fd_pipe);
 	return (0);
 }

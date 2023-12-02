@@ -60,7 +60,8 @@ t_command	*format_exe(t_command cmd)
 	t_command	*format;
 
 	format = malloc(sizeof(t_command));
-	format->cmd = malloc(sizeof(char *) * (nb_word(cmd.cmd) + 1));
+	//format->cmd = malloc(sizeof(char *) * (nb_word(cmd.cmd) + 1));
+	format->cmd = (char **)calloc(nb_word(cmd.cmd) + 1, sizeof(char *));
 	i = 0;
 	j = 0;
 	while (cmd.cmd[i] != NULL)

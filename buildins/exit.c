@@ -16,6 +16,8 @@ int	m_exit(char **cmds, char **envp)
 {
 	(void)cmds;
 	(void)envp;
+	ft_freetabs(cmds);
+	ft_freetabs(envp);
 	exit(0);
 	return (1);
 }

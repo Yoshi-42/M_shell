@@ -68,13 +68,14 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		pipe_cmd = ft_create_nodes(cmds, env.env_cpy);
 		fake_tree(pipe_cmd);
-		free(cmd);
 		ft_freetabs(cmds);
+		free(cmd);
 		ft_free_command(pipe_cmd);
 	}
 	printf("Fin du programme\n");
 	//ft_freetabs(cmds);
-	free(cmd);
+	if (cmd)
+		free(cmd);
 	ft_freetabs(env.env_cpy);
 	return (0);
 }

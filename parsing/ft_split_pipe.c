@@ -86,7 +86,8 @@ t_command	*ft_create_nodes(char **cmd, char **env)
 	i = 0;
 	j = 1;
 	n = ft_count_pipe(cmd);
-	node = malloc(sizeof(t_command *) * (n + 1));
+	//node = malloc(sizeof(t_command) * (n + 1));
+	node = (t_command *) ft_calloc(n + 1, sizeof(t_command));
 	node[0].cmd = ft_split_pipe(cmd);
 	while (cmd[i])
 	{
