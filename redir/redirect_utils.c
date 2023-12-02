@@ -53,7 +53,7 @@ int	nb_word(char **tab)
 	return (count);
 }
 
-t_command	*format_exe(t_command cmd)
+t_command	*format_exe(t_command *cmd)
 {
 	int			i;
 	int			j;
@@ -61,21 +61,22 @@ t_command	*format_exe(t_command cmd)
 
 	format = malloc(sizeof(t_command));
 	//format->cmd = malloc(sizeof(char *) * (nb_word(cmd.cmd) + 1));
-	format->cmd = (char **) ft_calloc(nb_word(cmd.cmd) + 1, sizeof(char *));
+	format->cmd = (char **) ft_calloc(nb_word(cmd->cmd) + 1, sizeof(char *));
 	i = 0;
 	j = 0;
-	while (cmd.cmd[i] != NULL)
+	while (cmd->cmd[i] != NULL)
 	{
-		if (!is_redir(cmd.cmd[i]))
+		if (!is_redir(cmd->cmd[i]))
 		{
-			format->cmd[j] = ft_strdup(cmd.cmd[i]);
+			format->cmd[j] = ft_strdup(cmd->cmd[i]);
 			j++;
 		}
 		else
 			i++;
-		if (cmd.cmd[i] != NULL)
+		if (cmd->cmd[i] != NULL)
 			i++;
 	}
 	format->cmd[j] = NULL;
+	format->env.env_cpy = envp_cpy(cmd->env.env_cpy);
 	return (format);
 }

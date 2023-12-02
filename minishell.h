@@ -80,10 +80,10 @@ void		ft_ctrlslash(int sign);
 void		print_tab(char **tableau);
 
 /*		REDIR		*/
-int			all_nodes(t_command cmd, t_command cmd_exe, int p_i, int p_o);
+int			all_nodes(t_command *cmd, t_command *cmd_exe, int p_i, int p_o);
 int			heredoc(char *eof);
-int			redirect(t_command cmd, int p_i, int p_o);
-t_command	*format_exe(t_command cmd);
+int			redirect(t_command *cmd, int p_i, int p_o);
+t_command	*format_exe(t_command *cmd);
 int			verfi_word(const char *word, const char *verif);
 
 /*		PIPE		*/
@@ -94,6 +94,6 @@ int			ft_isspace(char c);
 
 /*		FREE		*/
 void	ft_freetabs(char **tab);
-void	ft_free_command(t_command *cmd);
+void	ft_free_command(t_command **cmd);
 
 #endif

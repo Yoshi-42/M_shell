@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, ft_ctrlslash);
 	env.env_cpy = envp_cpy(envp);
-	using_history();
+	//using_history();
 	while (1)
 	{
 		cmd = readline("m_shell$> ");
@@ -69,15 +69,16 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		pipe_cmd = ft_create_nodes(cmds, env.env_cpy);
 		fake_tree(pipe_cmd);
+		ft_free_command(&pipe_cmd);
 		ft_freetabs(cmds);
 		free(cmd);
-		ft_free_command(pipe_cmd);
 	}
 	printf("Fin du programme\n");
 	//ft_freetabs(cmds);
 	if (cmd)
 		free(cmd);
 	ft_freetabs(env.env_cpy);
+	//ft_free_command(&pipe_cmd);
 	clear_history();
 	return (0);
 }

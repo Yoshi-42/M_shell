@@ -36,4 +36,5 @@ void	handle_history(char *cmd)
 	if (cmd == NULL || ft_check_empty(cmd, ' ') == 1)
 		return ;
 	add_history(cmd);
+	rl_on_new_line();
 }

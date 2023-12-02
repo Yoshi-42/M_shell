@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-int	m_exe(t_command cmd)
+int	m_exe(t_command *cmd)
 {
 	pid_t	child_pid;
 	int		status;
 	char	*file;
-
+	
 	child_pid = fork();
 	if (child_pid == -1)
 	{
@@ -27,8 +27,8 @@ int	m_exe(t_command cmd)
 	}
 	else if (child_pid == 0)
 	{
-		file = ft_strjoin("/bin/", cmd.cmd[0]);
-		execve(file, cmd.cmd, cmd.env.env_cpy);
+		file = ft_strjoin("/bin/", cmd->cmd[0]);
+		execve(file, cmd->cmd, cmd->env.env_cpy);
 		perror("Erreur d'exécution");
 		exit(EXIT_FAILURE);
 		return (-1);
@@ -42,7 +42,7 @@ int	m_exe(t_command cmd)
 	return (0);
 }
 
-void	exe_node(t_command cmd, int in, int out)
+void	exe_node(t_command *cmd, int in, int out)
 {
 	int	origin_fd;
 	int	ori_fd_in;
@@ -58,7 +58,7 @@ void	exe_node(t_command cmd, int in, int out)
 	dup2(ori_fd_in, 0);
 }
 
-int	all_nodes_no_enter(t_command cmd, t_command cmd_exe, int p_i, int p_o)
+int	all_nodes_no_enter(t_command *cmd, t_command *cmd_exe, int p_i, int p_o)
 {
 	int	i;
 	int	fd_out;
@@ -71,16 +71,16 @@ int	all_nodes_no_enter(t_command cmd, t_command cmd_exe, int p_i, int p_o)
 		exe_node(cmd_exe, p_i, p_o);
 		flag++;
 	}
-	while (cmd.cmd[i] != NULL)
+	while (cmd->cmd[i] != NULL)
 	{
-		if (verfi_word(cmd.cmd[i], ">") || verfi_word(cmd.cmd[i], ">>"))
+		if (verfi_word(cmd->cmd[i], ">") || verfi_word(cmd->cmd[i], ">>"))
 		{
-			if (cmd.cmd[i + 1] == NULL)
+			if (cmd->cmd[i + 1] == NULL)
 				return (-1);
-			if (verfi_word(cmd.cmd[i], ">"))
-				fd_out = open(cmd.cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			if (verfi_word(cmd->cmd[i], ">"))
+				fd_out = open(cmd->cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 			else
-				fd_out = open(cmd.cmd[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
+				fd_out = open(cmd->cmd[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
 			if (fd_out == -1)
 				perror("ERREUR DE FICHIER");
 			exe_node(cmd_exe, p_i, fd_out);
@@ -94,7 +94,7 @@ int	all_nodes_no_enter(t_command cmd, t_command cmd_exe, int p_i, int p_o)
 	return (0);
 }
 
-int	all_nodes(t_command cmd, t_command cmd_exe, int p_i, int p_o)
+int	all_nodes(t_command *cmd, t_command *cmd_exe, int p_i, int p_o)
 {
 	int	i;
 	int	fd_in;
@@ -107,16 +107,16 @@ int	all_nodes(t_command cmd, t_command cmd_exe, int p_i, int p_o)
 		all_nodes_no_enter(cmd, cmd_exe, p_i, p_o);
 		flag++;
 	}
-	while (cmd.cmd[i] != NULL)
+	while (cmd->cmd[i] != NULL)
 	{
-		if (verfi_word(cmd.cmd[i], "<") || verfi_word(cmd.cmd[i], "<<"))
+		if (verfi_word(cmd->cmd[i], "<") || verfi_word(cmd->cmd[i], "<<"))
 		{
-			if (cmd.cmd[i + 1] == NULL)
+			if (cmd->cmd[i + 1] == NULL)
 				return (-1);
-			if (verfi_word(cmd.cmd[i], "<"))
-				fd_in = open(cmd.cmd[i + 1], O_RDONLY | O_CREAT, 0666);
+			if (verfi_word(cmd->cmd[i], "<"))
+				fd_in = open(cmd->cmd[i + 1], O_RDONLY | O_CREAT, 0666);
 			else
-				fd_in = heredoc(cmd.cmd[i + 1]);
+				fd_in = heredoc(cmd->cmd[i + 1]);
 			if (fd_in == -1)
 				perror("ERREUR DE FICHIER");
 			all_nodes_no_enter(cmd, cmd_exe, fd_in, p_o);
@@ -130,14 +130,16 @@ int	all_nodes(t_command cmd, t_command cmd_exe, int p_i, int p_o)
 	return (0);
 }
 
-int	redirect(t_command cmd, int p_i, int p_o)
+int	redirect(t_command *cmd, int p_i, int p_o)
 {
 	t_command	*cmd_exe;
 
 	cmd_exe = format_exe(cmd);
 	//return (all_nodes(cmd, *cmd_exe, p_i, p_o));
-	all_nodes(cmd, *cmd_exe, p_i, p_o);
-	//free(cmd_exe);
-	ft_free_command(cmd_exe);
+	all_nodes(cmd, cmd_exe, p_i, p_o);
+	ft_freetabs(cmd_exe->cmd);
+	ft_freetabs(cmd_exe->env.env_cpy);
+	free(cmd_exe);
+	//ft_free_command(cmd_exe);
 	return (0);
 }
