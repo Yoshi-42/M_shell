@@ -25,7 +25,8 @@ int	heredoc(char *eof)
 	while (1)
 	{
 		input = readline("heredoc>");
-		if (ft_strncmp(input, eof, ft_strlen(eof)) == 0 && ft_strlen(eof) == ft_strlen(input))
+		if (ft_strncmp(input, eof, ft_strlen(eof)) == 0
+			&& ft_strlen(eof) == ft_strlen(input))
 		{
 			free(input);
 			break ;

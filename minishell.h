@@ -92,4 +92,8 @@ int			fake_tree(t_command *l_cmd);
 /*		UTILS		*/
 int			ft_isspace(char c);
 
+/*		FREE		*/
+void	ft_freetabs(char **tab);
+void	ft_free_command(t_command *cmd);
+
 #endif

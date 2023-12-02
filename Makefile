@@ -32,6 +32,7 @@ all: $(NAME)
 $(NAME): do_libft $(OBJS)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
 
+
 clean:
 	$(RM) $(RMFLAG) $(OBJS)
 	make -C ./libft clean

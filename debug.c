@@ -23,3 +23,38 @@ void	print_tab(char **tableau)
 		i++;
 	}
 }
+
+void	ft_freetabs(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if(tab != NULL)
+	{
+		while(tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+		free(tab);
+	}
+}
+
+
+void	ft_free_command(t_command *cmd)
+{
+	int i;
+
+	i = 0;
+	if (cmd == NULL)
+	{
+		while (cmd[i].cmd != NULL)
+		{
+			ft_freetabs(cmd[i].cmd);
+			ft_freetabs(cmd[i].env.env_cpy);
+			free(&cmd[i]);
+			i++;
+		}
+		free(cmd);
+	}
+}

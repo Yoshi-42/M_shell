@@ -66,6 +66,7 @@ int	ft_count_pipe(char **cmd)
 	int	count;
 
 	i = 0;
+	count = 0;
 	while (cmd[i])
 	{
 		if (ft_strcmp(cmd[i], "|") == 0)
@@ -85,7 +86,7 @@ t_command	*ft_create_nodes(char **cmd, char **env)
 	i = 0;
 	j = 1;
 	n = ft_count_pipe(cmd);
-	node = malloc(sizeof(t_command *) * n + 1);
+	node = malloc(sizeof(t_command *) * (n + 1));
 	node[0].cmd = ft_split_pipe(cmd);
 	while (cmd[i])
 	{

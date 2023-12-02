@@ -36,7 +36,8 @@ char	*ft_resize(char *str, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], str, ft_strlen(str)) == 0 && (env[i][ft_strlen(str)] == '='))
+		if (ft_strncmp(env[i], str, ft_strlen(str)) == 0
+			&& (env[i][ft_strlen(str)] == '='))
 		{
 			buff = ft_substr(env[i], ft_strlen(str) + 1, ft_strlen(env[i]));
 			return (buff);

@@ -42,6 +42,7 @@
 // 	return (0);
 // }
 
+
 int	main(int argc, char **argv, char **envp)
 {	
 	char		*cmd;
@@ -62,11 +63,18 @@ int	main(int argc, char **argv, char **envp)
 		cmds = parsing(cmd, env.env_cpy);
 		if (cmds == NULL)
 			return (0);
+		handle_history(cmd);
 		if (m_exe_buildin(cmds, &env) != 0)
 			continue ;
 		pipe_cmd = ft_create_nodes(cmds, env.env_cpy);
 		fake_tree(pipe_cmd);
-		handle_history(cmd);
+		free(cmd);
+		ft_freetabs(cmds);
+		ft_free_command(pipe_cmd);
 	}
+	printf("Fin du programme\n");
+	//ft_freetabs(cmds);
+	free(cmd);
+	ft_freetabs(env.env_cpy);
 	return (0);
 }
