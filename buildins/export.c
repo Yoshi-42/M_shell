@@ -1,114 +1,96 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   export2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 14:06:37 by orauline          #+#    #+#             */
-/*   Updated: 2023/12/01 18:52:32 by orauline         ###   ########.fr       */
+/*   Created: 2023/12/02 15:32:17 by artmarti          #+#    #+#             */
+/*   Updated: 2023/12/02 15:32:18 by artmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	add_to_env(char *cmd, t_env *env)
+int check_place_space(char *cmd)
 {
-	int		len;
-	int		i;
-	char	**updated_env;
+    int i;
 
-	i = -1;
-	len = 0;
-	while (env->env_cpy[len++])
-		;
-	updated_env = malloc(sizeof(char *) * (len + 1));
-	if (!updated_env)
-		return ;
-	updated_env[len] = ft_strdup(cmd);
-	updated_env[len + 1] = NULL;
-	while (env->env_cpy[++i])
-		updated_env[i] = ft_strdup(env->env_cpy[i]);
-	free(env->env_cpy);
-	env->env_cpy = updated_env;
+    i = 0;
+    while(cmd[i])
+    {
+        if (cmd[i] == '=')
+            return (i);
+        i++;
+    }
+    return (-1);
 }
 
-static int	is_valid_identifier(char *str)
+int check_exist(char *cmd, t_env *env, int n)
 {
-	while (*str)
-	{
-		if (!((*str >= 'a' && *str <= 'z') || (*str >= 'A' && *str <= 'Z')
-				|| *str == '_'))
-			return (0);
-		str++;
-	}
-	return (1);
+    int i;
+
+    i = 0;
+    while (env->env_cpy[i] != NULL)
+    {
+        if (ft_strncmp(cmd, env->env_cpy[i], n) == 0)
+            return (i);
+        i++;
+    }
+    return (-1);
 }
 
-static void	process_key(char *key, t_env *env)
+int     tabtab_strlen(char **tab)
 {
-	char	*equal;
+    int i;
 
-	equal = ft_strchr(key, '=');
-	if (!equal)
-	{
-		equal = "=''";
-		key = ft_strncat(ft_strdup(key), equal, ft_strlen(equal));
-		add_to_env(key, env);
-		free(key);
-	}
-	else
-	{
-		*equal = '\0';
-		add_to_env(key, env);
-		*equal = '=';
-	}
+    i = 0;
+    if (!tab)
+        return (0);
+    while (tab[i])
+        i++;
+    return (i);
 }
 
-static void	update_env(char *cmd, t_env *env)
+char	**tabtab_strjoin(char *cmd, char **env)
 {
-	int		i;
-	char	*key;
+    int len;
+    char **dest;
+    int i;
 
-	if (!is_valid_identifier(cmd))
-	{
-		printf("export: not an identifier: %s\n", cmd);
-		return ;
-	}
-	i = -1;
-	key = ft_strdup(cmd);
-	process_key(key, env);
-	while (env->env_cpy[++i])
-	{
-		if (ft_strcmp(key, env->env_cpy[i]) == 0)
-		{
-			free(env->env_cpy[i]);
-			env->env_cpy[i] = ft_strdup(cmd);
-			free(key);
-			return ;
-		}
-	}
-	free(key);
-	add_to_env(cmd, env);
+    i = 0;
+    len = tabtab_strlen(env);
+    dest = malloc(sizeof(char *) * (len + 2));
+    while (env[i])
+    {
+        dest[i] = ft_strdup(env[i]);
+        i++;
+    }
+    dest[i] = ft_strdup(cmd);
+    dest[i + 1] = NULL;
+    return (dest);
 }
 
 int	m_export(char **cmds, t_env *env)
 {
-	int	j;
+    int	j;
 
-	j = 0;
+	j = 1;
 	if (!cmds[1])
-	{
-		while (env->env_cpy[j])
-		{
-			printf("env[%d] = %s\n", j, env->env_cpy[j]);
-			j++;
-		}
-	}
-	else
-	{
-		while (cmds[++j])
-			update_env(cmds[j], env);
-	}
-	return (1);
+        m_env(env->env_cpy);
+    else
+    {
+        while (cmds[j])
+        {
+            if (ft_strchr(cmds[j], '=') != 0 && cmds[j][0] != '=')
+            {
+                if(check_exist(cmds[j], env, check_place_space(cmds[j])) >= 0)
+			        env->env_cpy[check_exist(cmds[j], env, check_place_space(cmds[j]))] = ft_strdup(cmds[j]);
+                else
+                    env->env_cpy = tabtab_strjoin(cmds[j], env->env_cpy);
+            }
+            j++;
+        }
+    }
+    return (1);
 }
