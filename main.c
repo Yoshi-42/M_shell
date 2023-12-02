@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, ft_ctrlslash);
 	env.env_cpy = envp_cpy(envp);
+	using_history();
 	while (1)
 	{
 		cmd = readline("m_shell$> ");
@@ -77,5 +78,6 @@ int	main(int argc, char **argv, char **envp)
 	if (cmd)
 		free(cmd);
 	ft_freetabs(env.env_cpy);
+	clear_history();
 	return (0);
 }

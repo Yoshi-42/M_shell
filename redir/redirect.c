@@ -137,6 +137,7 @@ int	redirect(t_command cmd, int p_i, int p_o)
 	cmd_exe = format_exe(cmd);
 	//return (all_nodes(cmd, *cmd_exe, p_i, p_o));
 	all_nodes(cmd, *cmd_exe, p_i, p_o);
-	free(cmd_exe);
+	//free(cmd_exe);
+	ft_free_command(cmd_exe);
 	return (0);
 }

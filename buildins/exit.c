@@ -18,6 +18,7 @@ int	m_exit(char **cmds, char **envp)
 	(void)envp;
 	ft_freetabs(cmds);
 	ft_freetabs(envp);
+	clear_history();
 	exit(0);
 	return (1);
 }

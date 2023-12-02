@@ -61,14 +61,14 @@ t_command	*format_exe(t_command cmd)
 
 	format = malloc(sizeof(t_command));
 	//format->cmd = malloc(sizeof(char *) * (nb_word(cmd.cmd) + 1));
-	format->cmd = (char **)calloc(nb_word(cmd.cmd) + 1, sizeof(char *));
+	format->cmd = (char **) ft_calloc(nb_word(cmd.cmd) + 1, sizeof(char *));
 	i = 0;
 	j = 0;
 	while (cmd.cmd[i] != NULL)
 	{
 		if (!is_redir(cmd.cmd[i]))
 		{
-			format->cmd[j] = strdup(cmd.cmd[i]);
+			format->cmd[j] = ft_strdup(cmd.cmd[i]);
 			j++;
 		}
 		else

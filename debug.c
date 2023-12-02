@@ -56,6 +56,7 @@ void	ft_free_command(t_command *cmd)
 			free(&cmd[i]);
 			i++;
 		}
+		free(&cmd[i]);
 		free(cmd);
 	}
 }

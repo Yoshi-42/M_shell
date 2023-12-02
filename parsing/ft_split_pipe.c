@@ -30,7 +30,8 @@ char	**ft_split_pipe(char **cmd)
 		return (cmd);
 	else
 	{
-		dest = malloc(sizeof(char *) * (end + 1));
+		//dest = malloc(sizeof(char *) * (end + 1));
+		dest = (char **) ft_calloc((end + 1), sizeof(char *));
 		while (start < end)
 		{
 			dest[start] = ft_strdup(cmd[start]);
@@ -49,7 +50,8 @@ char	**tabtab_strdup(char **tab)
 	i = 0;
 	while (tab[i])
 		i++;
-	dest = malloc(sizeof(char *) * (i + 1));
+	//dest = malloc(sizeof(char *) * (i + 1));
+	dest = (char **) ft_calloc((i + 1), sizeof(char *));
 	i = 0;
 	while (tab[i])
 	{
