@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 21:03:58 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 21:04:00 by artmarti         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:09:52 by orauline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,8 @@ int	count_args(char **str)
 
 int	check_digit(char *str)
 {
-	int		i;
-
-	i = 0;
 	if (str[0] && ft_isdigit(str[0]))
 		return (1);
-	i++;
 	return (0);
 }
 

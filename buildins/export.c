@@ -6,7 +6,7 @@
 /*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 14:06:37 by orauline          #+#    #+#             */
-/*   Updated: 2023/12/01 18:52:32 by orauline         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:08:36 by orauline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	add_to_env(char *cmd, t_env *env)
 	char	**updated_env;
 
 	i = -1;
-	len = 0;
-	while (env->env_cpy[len++])
+	len = -1;
+	while (env->env_cpy[++len])
 		;
-	updated_env = malloc(sizeof(char *) * (len + 1));
+	updated_env = malloc(sizeof(char *) * (len + 2));
 	if (!updated_env)
 		return ;
 	updated_env[len] = ft_strdup(cmd);
@@ -31,18 +31,6 @@ static void	add_to_env(char *cmd, t_env *env)
 		updated_env[i] = ft_strdup(env->env_cpy[i]);
 	free(env->env_cpy);
 	env->env_cpy = updated_env;
-}
-
-static int	is_valid_identifier(char *str)
-{
-	while (*str)
-	{
-		if (!((*str >= 'a' && *str <= 'z') || (*str >= 'A' && *str <= 'Z')
-				|| *str == '_'))
-			return (0);
-		str++;
-	}
-	return (1);
 }
 
 static void	process_key(char *key, t_env *env)
@@ -70,7 +58,7 @@ static void	update_env(char *cmd, t_env *env)
 	int		i;
 	char	*key;
 
-	if (!is_valid_identifier(cmd))
+	if (check_digit(cmd))
 	{
 		printf("export: not an identifier: %s\n", cmd);
 		return ;
@@ -88,7 +76,7 @@ static void	update_env(char *cmd, t_env *env)
 			return ;
 		}
 	}
-	free(key);
+	// free(key);
 	add_to_env(cmd, env);
 }
 
@@ -107,6 +95,7 @@ int	m_export(char **cmds, t_env *env)
 	}
 	else
 	{
+		j = 0;
 		while (cmds[++j])
 			update_env(cmds[j], env);
 	}
