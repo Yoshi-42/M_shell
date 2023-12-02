@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	m_pwd(void)
+int	m_pwd(void)
 {
 	char	*s;
 	size_t	size;
@@ -26,4 +26,5 @@ void	m_pwd(void)
 		exit(EXIT_FAILURE);
 	printf("%s\n", s);
 	free(s);
+	return (1);
 }

@@ -110,5 +110,5 @@ int	m_export(char **cmds, t_env *env)
 		while (cmds[++j])
 			update_env(cmds[j], env);
 	}
-	return (0);
+	return (1);
 }

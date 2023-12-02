@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	m_env(char **envp)
+int	m_env(char **envp)
 {
 	int	i;
 
@@ -22,4 +22,5 @@ void	m_env(char **envp)
 		printf("%s\n", envp[i]);
 		i++;
 	}
+	return (1);
 }

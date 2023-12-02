@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 
-void	m_cd(char **cmds)
+int	m_cd(char **cmds)
 {
 	chdir(cmds[1]);
+	return (1);
 }

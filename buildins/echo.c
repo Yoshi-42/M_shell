@@ -13,7 +13,7 @@
 #include "../minishell.h"
 
 // i++;         //i++ pour tester avec le main
-void	m_echo_n(char **cmd)
+int	m_echo_n(char **cmd)
 {
 	int	i;
 
@@ -25,6 +25,7 @@ void	m_echo_n(char **cmd)
 			printf(" ");
 		i++;
 	}
+	return (1);
 }
 
 // Main pour tester la fonction m_echo_n, !CONTIENT DES FONCTIONS INTERDITES!

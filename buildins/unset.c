@@ -80,5 +80,5 @@ int	m_unset(char **cmds, t_env *env)
 		remove_env_var(env->key, env);
 		j++;
 	}
-	return (0);
+	return (1);
 }

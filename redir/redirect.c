@@ -121,6 +121,7 @@ int	all_nodes(t_command cmd, t_command cmd_exe, int p_i, int p_o)
 				perror("ERREUR DE FICHIER");
 			all_nodes_no_enter(cmd, cmd_exe, fd_in, p_o);
 			flag++;
+			close (fd_in);
 		}
 		i++;
 	}
@@ -134,5 +135,8 @@ int	redirect(t_command cmd, int p_i, int p_o)
 	t_command	*cmd_exe;
 
 	cmd_exe = format_exe(cmd);
-	return (all_nodes(cmd, *cmd_exe, p_i, p_o));
+	//return (all_nodes(cmd, *cmd_exe, p_i, p_o));
+	all_nodes(cmd, *cmd_exe, p_i, p_o);
+	free(cmd_exe);
+	return (0);
 }

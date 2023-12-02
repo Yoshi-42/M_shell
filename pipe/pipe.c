@@ -28,6 +28,8 @@ int	fake_tree(t_command *l_cmd)
 		pipe(fd_pipe);
 		fd_out = fd_pipe[1];
 		redirect(l_cmd[i], fd_in, fd_out);
+		if (fd_in != -1)
+			close (fd_in);
 		fd_in = fd_pipe[0];
 		i++;
 		close(fd_out);
