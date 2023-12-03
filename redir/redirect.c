@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:41:36 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 20:41:37 by artmarti         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:43:14 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	m_exe(t_command *cmd)
 	else if (child_pid == 0)
 	{
 		file = ft_strjoin("/bin/", cmd->cmd[0]);
+		cmd->status = 0;
 		execve(file, cmd->cmd, cmd->env.env_cpy);
 		perror("Erreur d'exécution");
 		exit(EXIT_FAILURE);
@@ -37,7 +38,10 @@ int	m_exe(t_command *cmd)
 	{
 		waitpid(child_pid, &status, 0);
 		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+		{
+			cmd->status = 127;
 			printf("La commande FAILED end %d\n", WEXITSTATUS(status));
+		}
 	}
 	return (0);
 }
@@ -137,6 +141,7 @@ int	redirect(t_command *cmd, int p_i, int p_o)
 	cmd_exe = format_exe(cmd);
 	//return (all_nodes(cmd, *cmd_exe, p_i, p_o));
 	all_nodes(cmd, cmd_exe, p_i, p_o);
+	cmd->status = cmd_exe->status;
 	ft_freetabs(cmd_exe->cmd);
 	ft_freetabs(cmd_exe->env.env_cpy);
 	free(cmd_exe);

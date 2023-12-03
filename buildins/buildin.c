@@ -6,7 +6,7 @@
 /*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:04:27 by artmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 16:44:56 by bgonon           ###   ########.fr       */
+/*   Updated: 2023/12/03 15:23:28 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 int	m_exe_buildin(char **cmds, t_env *env)
 {
-	if (ft_strcmp(cmds[0], "echo") == 0)
+	if (ft_strcmp(cmds[0], "echo") && ft_strcmp(cmds[1], "-n") == 0)
 		return (m_echo_n(cmds));
 	else if (ft_strcmp(cmds[0], "cd") == 0)
 		return (m_cd(cmds));

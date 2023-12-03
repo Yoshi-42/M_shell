@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:36:57 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 13:37:00 by artmarti         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:37:00 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_command
 {
 	char	**cmd;
 	t_env	env;
+	int		status;
 }	t_command;
 
 typedef struct s_list
@@ -45,11 +46,11 @@ typedef struct s_list
 }	t_list;
 
 /*		PARSING		*/
-char		**parsing(char *cmd, char **env);
+char		**parsing(char *cmd, char **env, int err);
 char		**split(char *cmd, char c, int actualw, int nextw);
 char		**handle_quote(char **cmds);
 char		**handle_dollard(char **cmds);
-char		**ft_parkour(char **cmd, char **env);
+char	**ft_parkour(char **cmd, char **env, int err);
 t_list		*pipe_split(char **cmds, char ***envp);
 t_command	*ft_create_nodes(char **cmd, char **env);
 

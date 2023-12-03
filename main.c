@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:41:45 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 13:41:46 by artmarti         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:45:55 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@
 // 	return (0);
 // }
 
+int get_status(t_command *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i].cmd != NULL)
+		i++;
+	return (cmd[i - 1].status);
+}
+
+
+
 
 int	main(int argc, char **argv, char **envp)
 {	
@@ -49,6 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	char		**cmds;
 	t_command	*pipe_cmd;
 	t_env		env;
+	int			err;
 
 	(void)argc;
 	(void)argv;
@@ -56,19 +69,22 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, ft_ctrlslash);
 	env.env_cpy = envp_cpy(envp);
 	//using_history();
+	err = 0;
 	while (1)
 	{
 		cmd = readline("m_shell$> ");
 		if (cmd == NULL)
 			break ;
-		cmds = parsing(cmd, env.env_cpy);
+		cmds = parsing(cmd, env.env_cpy, err);
 		if (cmds == NULL)
 			return (0);
 		handle_history(cmd);
+		err = 0;
 		if (m_exe_buildin(cmds, &env) != 0)
 			continue ;
 		pipe_cmd = ft_create_nodes(cmds, env.env_cpy);
 		fake_tree(pipe_cmd);
+		err = get_status(pipe_cmd);
 		ft_free_command(&pipe_cmd);
 		//free_t_command_array(pipe_cmd);
 		ft_freetabs(cmds);

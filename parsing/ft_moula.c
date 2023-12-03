@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_moula.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:23:35 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 20:23:37 by artmarti         ###   ########.fr       */
+/*   Updated: 2023/12/03 16:21:35 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_replace_var(char *str, char **env, int i)
 	size = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '?')
 		{
 			size = long_doll(&str[i + 1]);
 			var = ft_substr(str, i + 1, size);
@@ -105,14 +105,68 @@ char	*ft_replace_var(char *str, char **env, int i)
 	return (str);
 }
 
-char	**ft_parkour(char **cmd, char **env)
+char	*ft_var_int(char *str, int err)
+{
+	int	i;
+	char 	*dest;
+	int 	size;
+	char	*buff;
+
+	buff = ft_itoa(err);
+	size = 0;
+	//printf("Test 1\n");
+	dest = malloc(sizeof(char) * (ft_strlen(buff) + ft_strlen(str) + 1));
+	printf("err = %d\n", err);
+	printf("buff = %s\n", buff);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] == '?')
+		{
+			while (buff[size])
+			{
+				dest[i + size] = buff[size];
+				size++;
+			}
+			i++;
+			i++;
+		}
+		dest[i + size] = str[i];
+		i++;
+	}
+	dest[i + size] = '\0';
+	return (dest);
+}
+
+int	ft_search(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i + 1])
+	{
+		if (str[i] == '$' && str[i + 1] == '?')
+			return (1);
+		else
+			i++;
+	}
+	return (0);
+}
+
+char	**ft_parkour(char **cmd, char **env, int err)
 {
 	int	i;
 
 	i = 0;
 	while (cmd[i])
 	{
-		if (ft_strchr(cmd[i], '$') && cmd[i][0] != '\'')
+		//printf("Test -1\n");
+		if (ft_search(cmd[i]))
+		{
+			//printf("Test 0\n");
+			cmd[i] = ft_var_int(cmd[i], err);
+		}
+		else if (ft_strchr(cmd[i], '$') && cmd[i][0] != '\'')
 			cmd[i] = ft_replace_var(cmd[i], env, 0);
 		i++;
 	}
