@@ -86,6 +86,8 @@ int			heredoc(char *eof);
 int			redirect(t_command *cmd, int p_i, int p_o);
 t_command	*format_exe(t_command *cmd);
 int			verfi_word(const char *word, const char *verif);
+int			m_exe(t_command *cmd);
+void		exe_node(t_command *cmd, int in, int out, int *flag)
 
 /*		PIPE		*/
 int			fake_tree(t_command *l_cmd);
