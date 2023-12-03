@@ -30,7 +30,6 @@ char	**ft_split_pipe(char **cmd)
 		return (cmd);
 	else
 	{
-		//dest = malloc(sizeof(char *) * (end + 1));
 		dest = (char **) ft_calloc((end + 1), sizeof(char *));
 		while (start < end)
 		{
@@ -50,7 +49,6 @@ char	**tabtab_strdup(char **tab)
 	i = 0;
 	while (tab[i])
 		i++;
-	//dest = malloc(sizeof(char *) * (i + 1));
 	dest = (char **) ft_calloc((i + 1), sizeof(char *));
 	i = 0;
 	while (tab[i])
@@ -88,8 +86,6 @@ t_command	*ft_create_nodes(char **cmd, char **env)
 	i = 0;
 	j = 1;
 	n = ft_count_pipe(cmd);
-	//node = malloc(sizeof(t_command) * (n + 1));
-	//node = (t_command *) ft_calloc(n + 1, sizeof(t_command));
 	node = (t_command *) ft_calloc(n + 2, sizeof(t_command));
 	node[0].cmd = ft_split_pipe(cmd);
 	node[0].env.env_cpy = envp_cpy(env);
@@ -98,7 +94,6 @@ t_command	*ft_create_nodes(char **cmd, char **env)
 		if (ft_strcmp(cmd[i], "|") == 0 && j < n)
 		{
 			node[j].cmd = ft_split_pipe(&cmd[i + 1]);
-			//node[j].env.env_cpy = tabtab_strdup(env);
 			node[j].env.env_cpy = envp_cpy(env);
 			j++;
 		}

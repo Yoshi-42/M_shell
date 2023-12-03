@@ -42,7 +42,7 @@
 // 	return (0);
 // }
 
-int get_status(t_command *cmd)
+int	get_status(t_command *cmd)
 {
 	int	i;
 
@@ -51,9 +51,6 @@ int get_status(t_command *cmd)
 		i++;
 	return (cmd[i - 1].status);
 }
-
-
-
 
 int	main(int argc, char **argv, char **envp)
 {	
@@ -68,7 +65,6 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, ft_ctrlslash);
 	env.env_cpy = envp_cpy(envp);
-	//using_history();
 	err = 0;
 	while (1)
 	{
@@ -86,16 +82,13 @@ int	main(int argc, char **argv, char **envp)
 		fake_tree(pipe_cmd);
 		err = get_status(pipe_cmd);
 		ft_free_command(&pipe_cmd);
-		//free_t_command_array(pipe_cmd);
 		ft_freetabs(cmds);
 		free(cmd);
 	}
 	printf("Fin du programme\n");
-	//ft_freetabs(cmds);
 	if (cmd)
 		free(cmd);
 	ft_freetabs(env.env_cpy);
-	//ft_free_command(&pipe_cmd);
 	clear_history();
 	return (0);
 }

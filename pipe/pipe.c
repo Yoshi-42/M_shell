@@ -19,7 +19,6 @@ int	fake_tree(t_command *l_cmd)
 	int	fd_out;
 	int	*fd_pipe;
 
-	//fd_pipe = malloc(sizeof(int) * 2);
 	fd_pipe = (int *)ft_calloc(2, sizeof(int));
 	if (!fd_pipe)
 		return (-1);

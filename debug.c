@@ -29,9 +29,9 @@ void	ft_freetabs(char **tab)
 	int	i;
 
 	i = 0;
-	if(tab != NULL)
+	if (tab != NULL)
 	{
-		while(tab[i])
+		while (tab[i])
 		{
 			free(tab[i]);
 			tab[i] = NULL;
@@ -47,9 +47,9 @@ void	ft_freetabs_plus(char **tab)
 	int	i;
 
 	i = 0;
-	if(tab != NULL)
+	if (tab != NULL)
 	{
-		while(tab[i])
+		while (tab[i])
 		{
 			free(tab[i]);
 			tab[i] = NULL;
@@ -58,19 +58,19 @@ void	ft_freetabs_plus(char **tab)
 	}
 }
 
-int ft_tab_len(char **array) 
+int	ft_tab_len(char **array)
 {
-    int i;
-	
+	int	i;
+
 	i = 0;
-    while (array[i] != NULL) 
-       i++;
-    return i;
+	while (array[i] != NULL)
+		i++;
+	return (i);
 }
 
 void	ft_free_command(t_command **cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if ((*cmd)[0].cmd != NULL)
@@ -83,7 +83,7 @@ void	ft_free_command(t_command **cmd)
 			if ((*cmd)->env.key)
 				free((*cmd)->env.key);
 			if ((*cmd)->env.value)
-       			free((*cmd)->env.value);
+				free((*cmd)->env.value);
 			i++;
 		}
 		ft_freetabs_plus((*cmd)[i].env.env_cpy);

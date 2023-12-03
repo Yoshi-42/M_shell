@@ -136,34 +136,6 @@ char	*ft_var_int(char *str, int err)
 	return (dest);
 }
 
-
-// char	*ft_var_int(char *str, int err)
-// {
-// 	int	i;
-// 	char *buff;
-// 	char *dest;
-
-// 	i = 0;
-// 	buff = ft_itoa(err);
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '$' && str[i + 1] == '?')
-// 		{
-// 			dest = ft_substr(str, 0, i);
-// 			dest = ft_strjoin(dest, buff);
-// 			dest = ft_strjoin(dest, &str[i + 2]);
-			
-// 			free(dest);
-// 			free(buff);
-// 		}
-// 		i++;
-// 	}
-// 	str = ft_strdup(dest);
-// 	free(dest);
-// 	free(buff);
-// 	return (str);
-// }
-
 int	ft_search(char *str)
 {
 	int	i;
@@ -197,44 +169,3 @@ char	**ft_parkour(char **cmd, char **env, int err)
 	}
 	return (cmd);
 }
-
-/*
-int	main(int argc, char **argv, char **env)
-{
-	if (argc == 1)
-		return (0);
-	int i;
-	// int	size;
-	// char *var;
-	// char *buff;
-	// char *dest;
-	char *str;
-	int	j;
-
-	j = 0;
-	while (argv[1] && argv[1][j] != '$')
-		j++;
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-	// printf("j = %d\n", j);
-	// size = long_doll(&argv[1][j]); // a l'air ok
-	// printf("size = %i\n", size);
-	// var = ft_substr(argv[1], j, size);
-	// printf("var = %s\n", var);
-	// buff = ft_resize(var, env);
-	// printf("buff = %s\n", buff);
-	// dest = ft_insert(argv[1], buff, j, ft_strlen(var));
-	// printf("dest = %s\n", dest);
-	// str = ft_strdup(dest);
-	// printf("str = %s\n", str);
-	str = ft_replace_var(argv[1], env);
-	printf("str = %s\n", str);
-
-	
-	return(0);
-}
-*/

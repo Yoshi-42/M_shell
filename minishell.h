@@ -50,7 +50,7 @@ char		**parsing(char *cmd, char **env, int err);
 char		**split(char *cmd, char c, int actualw, int nextw);
 char		**handle_quote(char **cmds);
 char		**handle_dollard(char **cmds);
-char	**ft_parkour(char **cmd, char **env, int err);
+char		**ft_parkour(char **cmd, char **env, int err);
 t_list		*pipe_split(char **cmds, char ***envp);
 t_command	*ft_create_nodes(char **cmd, char **env);
 
@@ -94,8 +94,8 @@ int			fake_tree(t_command *l_cmd);
 int			ft_isspace(char c);
 
 /*		FREE		*/
-void	ft_freetabs(char **tab);
-void	ft_free_command(t_command **cmd);
-void	free_t_command_array(t_command *commands);
+void		ft_freetabs(char **tab);
+void		ft_free_command(t_command **cmd);
+void		free_t_command_array(t_command *commands);
 
 #endif
