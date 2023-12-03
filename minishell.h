@@ -95,5 +95,6 @@ int			ft_isspace(char c);
 /*		FREE		*/
 void	ft_freetabs(char **tab);
 void	ft_free_command(t_command **cmd);
+void	free_t_command_array(t_command *commands);
 
 #endif

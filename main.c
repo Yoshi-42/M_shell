@@ -70,6 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		pipe_cmd = ft_create_nodes(cmds, env.env_cpy);
 		fake_tree(pipe_cmd);
 		ft_free_command(&pipe_cmd);
+		//free_t_command_array(pipe_cmd);
 		ft_freetabs(cmds);
 		free(cmd);
 	}

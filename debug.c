@@ -76,13 +76,21 @@ void	ft_free_command(t_command **cmd)
 	if ((*cmd)[0].cmd != NULL)
 	{
 		while ((*cmd)[i].cmd != NULL)
-		{
+		{	
+			printf("DIAMANT :: %i\n", i);
 			ft_freetabs_plus((*cmd)[i].cmd);
+			if (i > 1)
+				free((*cmd)[i].cmd);
 			ft_freetabs_plus((*cmd)[i].env.env_cpy);
 			free((*cmd)[i].env.env_cpy);
+			if ((*cmd)->env.key)
+				free((*cmd)->env.key);
+			if ((*cmd)->env.value)
+       			free((*cmd)->env.value);
 			i++;
 		}
-		free((*cmd)[i].env.env_cpy);
+		printf("DIAMANT :: %i\n", i);
+		ft_freetabs_plus((*cmd)[i].env.env_cpy);
 		free(*cmd);
 		(*cmd) = NULL;
 	}
