@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_exe.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgonon <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 19:34:47 by bgonon            #+#    #+#             */
+/*   Updated: 2023/12/03 19:34:48 by bgonon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*is_bin(char *cmd)
@@ -24,13 +36,13 @@ int	m_exe(t_command *cmd)
 	int		status;
 	char	*file;
 
+	cmd->status = 0;
 	child_pid = fork();
 	if (child_pid == -1)
 		return (exe_error(0));
 	else if (child_pid == 0)
 	{
 		file = is_bin(cmd->cmd[0]);
-		cmd->status = 0;
 		execve(file, cmd->cmd, cmd->env.env_cpy);
 		return (exe_error(1));
 	}

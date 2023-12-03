@@ -6,7 +6,7 @@
 /*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:36:57 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/03 15:37:00 by bgonon           ###   ########.fr       */
+/*   Updated: 2023/12/03 19:36:19 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char		**handle_dollard(char **cmds);
 char		**ft_parkour(char **cmd, char **env, int err);
 t_list		*pipe_split(char **cmds, char ***envp);
 t_command	*ft_create_nodes(char **cmd, char **env);
+char		*ft_resize(char *str, char **env);
+int			long_doll(char *str);
 
 /*		HISTORY		*/
 void		handle_history(char *cmd);
@@ -87,7 +89,7 @@ int			redirect(t_command *cmd, int p_i, int p_o);
 t_command	*format_exe(t_command *cmd);
 int			verfi_word(const char *word, const char *verif);
 int			m_exe(t_command *cmd);
-void		exe_node(t_command *cmd, int in, int out, int *flag)
+void		exe_node(t_command *cmd, int in, int out, int *flag);
 
 /*		PIPE		*/
 int			fake_tree(t_command *l_cmd);

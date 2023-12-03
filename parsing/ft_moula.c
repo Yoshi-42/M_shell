@@ -6,47 +6,11 @@
 /*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:23:35 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/03 17:37:34 by bgonon           ###   ########.fr       */
+/*   Updated: 2023/12/03 19:37:04 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	long_doll(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != '\"')
-	{
-		i++;
-		if (str[i] == '$')
-			return (i);
-		if (ft_isspace(str[i]) == 1)
-			return (i);
-	}
-	return (i);
-}
-
-char	*ft_resize(char *str, char **env)
-{
-	char	*buff;
-	int		i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], str, ft_strlen(str)) == 0
-			&& (env[i][ft_strlen(str)] == '='))
-		{
-			buff = ft_substr(env[i], ft_strlen(str) + 1, ft_strlen(env[i]));
-			return (buff);
-		}
-		else
-			i++;
-	}
-	return ("");
-}
 
 char	*ft_insert(char *src, char *app, int start, int size)
 {
@@ -105,35 +69,32 @@ char	*ft_replace_var(char *str, char **env, int i)
 	return (str);
 }
 
-char	*ft_var_int(char *str, int err)
+char	*ft_var_int(char *str, int err, int i, int j)
 {
-	int		i;
-	char 	*dest;
-	int 	size;
+	char	*dest;
 	char	*buff;
-	int		j;
+	int		size;
 
+	size = -1;
 	buff = ft_itoa(err);
-	size = 0;
 	dest = malloc(sizeof(char) * (ft_strlen(buff) + ft_strlen(str) - 1));
-	i = 0;
-	j = 0;
-	while (str[i])
+	while (str[i + j])
 	{
 		if (str[i] == '$' && str[i + 1] == '?')
 		{
-			while (buff[size] != '\0')
-			{
+			j = 0;
+			while (buff[++size] != '\0')
 				dest[i + size] = buff[size];
-				size++;
-			}
-			j = j + 2;		
+			j = j + 2;
 		}
 		dest[i + size] = str[i + j];
 		i++;
 	}
 	dest[i + size] = '\0';
-	return (dest);
+	free(buff);
+	str = ft_strdup(dest);
+	free(dest);
+	return (str);
 }
 
 int	ft_search(char *str)
@@ -158,10 +119,9 @@ char	**ft_parkour(char **cmd, char **env, int err)
 	i = 0;
 	while (cmd[i])
 	{
-		if (ft_search(cmd[i]))
+		if (ft_search(cmd[i]) && cmd[i][0] != '\'')
 		{
-			cmd[i] = ft_var_int(cmd[i], err);
-			continue;
+			cmd[i] = ft_var_int(cmd[i], err, 0, 0);
 		}
 		if (ft_strchr(cmd[i], '$') && cmd[i][0] != '\'')
 			cmd[i] = ft_replace_var(cmd[i], env, 0);

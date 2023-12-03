@@ -6,7 +6,7 @@
 /*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:41:36 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/03 15:43:14 by bgonon           ###   ########.fr       */
+/*   Updated: 2023/12/03 19:28:11 by bgonon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	all_nodes_no_enter(t_command *cmd, t_command *cmd_exe, int p_i, int p_o)
 	{
 		if (verfi_word(cmd->cmd[i], ">") || verfi_word(cmd->cmd[i], ">>"))
 		{
-			fd_out = (cmd->cmd[i + 1], cmd->cmd[i]);
+			fd_out = open_out(cmd->cmd[i + 1], cmd->cmd[i]);
 			if (fd_out == -1)
 				perror("ERREUR DE FICHIER");
 			exe_node(cmd_exe, p_i, fd_out, &flag);
