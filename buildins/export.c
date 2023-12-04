@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: orauline <orauline@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 14:06:37 by orauline          #+#    #+#             */
-/*   Updated: 2023/12/02 16:23:55 by orauline         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:28:30 by orauline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	add_to_env(char *cmd, t_env *env)
 		return ;
 	}
 	updated_env[len] = ft_strdup(cmd);
+	printf("cmd afeter updted env = %s\n", cmd);
+	printf("updated env strdup = %s\n", updated_env[len]);
 	updated_env[len + 1] = NULL;
 	while (env->env_cpy[++i])
 	{
@@ -37,6 +39,7 @@ static void	add_to_env(char *cmd, t_env *env)
 	}
 	free(env->env_cpy);
 	env->env_cpy = updated_env;
+	printf("envcpy = %s\n", env->env_cpy[i]);
 }
 
 static void	process_key(char *key, t_env *env)
@@ -47,40 +50,64 @@ static void	process_key(char *key, t_env *env)
 	char	*equal_not_found;
 
 	equal = ft_strchr(key, '=');
+	printf("equal = %s\n", equal);
 	if (!equal)
 	{
 		equal_not_found = "=''";
-		new_key = ft_strncat(ft_strdup(key), equal_not_found, ft_strlen(equal_not_found));
+		new_key = ft_strncat(key, equal_not_found, ft_strlen(equal_not_found));
+		printf("new_key after concat= %s\n", new_key);
 		add_to_env(new_key, env);
-		free(new_key);
+		printf("new_key after add to env= %s\n", new_key);
+		// free(new_key);
 	}
 	else
 	{
 		temp = ft_strdup(key);
-		*equal = '\0';
+		// *equal = '\0';
 		add_to_env(temp, env);
-		*equal = '=';
-		free(temp);
+		// *equal = '=';
+		// free(temp);
 	}
 }
+
+// static char *find_key(char *cmd)
+// {
+// 	char *key;
+// 	int i;
+// 	int j;
+
+// 	i= -1;
+// 	j = -1;
+// 	key = ft_strdup(cmd);
+// 	if (cmd[++i] != '=')
+// 	{
+// 		key[j] = cmd[i];
+// 		key[j + 1] = '\0';
+// 	}
+// 	return (key);
+// 	printf("find key value is ; key = %s\n", key);
+// }
 
 static void	update_env(char *cmd, t_env *env)
 {
 	int		i;
 	char	*key;
 
-	if (!cmd || check_digit(cmd))
+	if (ft_isdigit(cmd[0]) != 0)
 	{
 		printf("export: not an identifier: %s\n", cmd);
 		return ;
 	}
 	i = -1;
-	key = ft_strdup(cmd);
+	key = find_key(cmd);
+	printf("key value strdup cmd is: %s\n", key);
 	process_key(key, env);
+	printf("key value after process key is: %s\n", key);
 	while (env->env_cpy[++i])
 	{
 		if (ft_strcmp(key, env->env_cpy[i]) == 0)
 		{
+			printf("key afeter strcmp= %s\n", key);
 			free(env->env_cpy[i]);
 			env->env_cpy[i] = ft_strdup(cmd);
 			free(key);
@@ -102,7 +129,7 @@ int	m_export(char **cmds, t_env *env)
 	{
 		while (env->env_cpy[j])
 		{
-			printf("env[%d] = %s\n", j, env->env_cpy[j]);
+			printf("%s\n", env->env_cpy[j]);
 			j++;
 		}
 	}
