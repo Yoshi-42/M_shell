@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: esuberbi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 21:03:58 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/02 15:09:52 by orauline         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:34:22 by esuberbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ char	**envp_cpy(char **envp)
 		env[i] = ft_strdup(envp[i]);
 	}
 	return (env);
-}
-
-int	count_args(char **str)
-{
-	int		count;
-
-	count = 0;
-	if (str == NULL)
-		return (0);
-	while (str[count] != NULL)
-	{
-		count++;
-	}
-	return (count);
-}
-
-int	check_digit(char *str)
-{
-	if (str[0] && ft_isdigit(str[0]))
-		return (1);
-	return (0);
 }
 
 char	*ft_strncat(char *dest, char *src, unsigned int nb)
