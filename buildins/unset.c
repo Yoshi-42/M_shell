@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orauline <orauline@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: esuberbi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:07:42 by orauline          #+#    #+#             */
-/*   Updated: 2023/12/01 18:23:01 by orauline         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:08:43 by esuberbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 6. Mettre a jour l'environnement en effacant l'environnement actuel et
 en mettamt a jour la table
 */
+
+static int	check_digit(char *str, t_env *env)
+{
+	if (ft_isdigit(str[0]) != 0)
+	{
+		env->flag_arg_error++;
+		if (env->flag_arg_error == 1)
+		{
+			printf("unset: %s: invalid parameter name\n", str);
+			return (1);
+		}
+	}
+	return (0);
+}
 
 static void	remove_env_var(char *key, t_env *env)
 {
@@ -49,24 +63,24 @@ static int	err_not_enough_args(void)
 	return (1);
 }
 
-static int	err_invalid_params(char *cmds)
-{
-	printf("unset: %s: invalid parameter name\n", cmds);
-	return (1);
-}
+// static int	err_invalid_params(char *cmds)
+// {
+// 	printf("unset: %s: invalid parameter name\n", cmds);
+// 	return (1);
+// }
 
 int	m_unset(char **cmds, t_env *env)
 {
 	int	j;
 	int	i;
 
+	env->flag_arg_error = 0;
 	if (!cmds[1])
 		err_not_enough_args();
 	j = 1;
 	while (cmds[j])
 	{
-		if (check_digit(cmds[j]))
-			err_invalid_params(cmds[j]);
+		check_digit(cmds[j], env);
 		env->key = ft_strdup(cmds[j]);
 		if (ft_strchr(env->key, '='))
 		{
