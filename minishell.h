@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: bgonon <bgonon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:36:57 by artmarti          #+#    #+#             */
 /*   Updated: 2023/12/03 19:36:19 by bgonon           ###   ########.fr       */
+=======
+/*   By: esuberbi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 13:36:57 by artmarti          #+#    #+#             */
+/*   Updated: 2023/12/05 19:00:26 by esuberbi         ###   ########.fr       */
+>>>>>>> export
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +36,7 @@ typedef struct s_env
 {
 	char	**env_cpy;
 	char	*key;
-	char	*value;
+	int		flag_arg_error;
 }	t_env;
 
 typedef struct s_command
@@ -66,12 +73,15 @@ int			m_cd(char **cmds);
 int			m_echo_n(char **cmd);
 char		*ft_strncat(char *dest, char *src, unsigned int nb);
 int			m_env(char **envp);
-int			check_digit(char *str);
 int			count_args(char **str);
 char		**envp_cpy(char **envp);
 int			m_pwd(void);
 int			m_unset(char **cmds, t_env *env);
 int			ft_strcmp(char *s1, char *s2);
+void		add_to_env(char *cmd, t_env *env);
+int			check_errors(char *str, t_env *env);
+int			get_key(char *arg, t_env *env);
+int			check_equal(char *arg);
 int			m_exit(char **cmds, char **envp);
 char		**envp_cpy(char **envp);
 

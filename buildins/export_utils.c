@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: artmarti <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 21:03:58 by artmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 21:04:00 by artmarti         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
 char	**envp_cpy(char **envp)
@@ -33,45 +21,78 @@ char	**envp_cpy(char **envp)
 	return (env);
 }
 
-int	count_args(char **str)
+//ajoute l element a env copy 
+void	add_to_env(char *cmd, t_env *env)
 {
-	int		count;
+	int		len;
+	int		i;
+	char	**updated_env;
 
-	count = 0;
-	if (str == NULL)
-		return (0);
-	while (str[count] != NULL)
+	i = -1;
+	len = -1;
+	while (env->env_cpy[++len])
+		;
+	updated_env = malloc(sizeof(char *) * (len + 2));
+	if (!updated_env)
 	{
-		count++;
+		free(updated_env);
+		return ;
 	}
-	return (count);
+	updated_env[len] = ft_strdup(cmd);
+	updated_env[len + 1] = NULL;
+	while (env->env_cpy[++i])
+	{
+		updated_env[i] = ft_strdup(env->env_cpy[i]);
+		free(env->env_cpy[i]);
+	}
+	free(env->env_cpy);
+	env->env_cpy = updated_env;
 }
 
-int	check_digit(char *str)
+//verifie si le premier caractere est un digit
+//si c'est le cas, le message d'erreur s'affcihe 
+//a la premiere erreur rencontree 
+int	check_errors(char *str, t_env *env)
 {
-	int		i;
-
-	i = 0;
-	if (str[0] && ft_isdigit(str[0]))
-		return (1);
-	i++;
+	if (ft_isdigit(str[0]) != 0)
+	{
+		env->flag_arg_error++;
+		if (env->flag_arg_error == 1)
+		{
+			printf("export: not an identifier: %s\n", str);
+			return (1);
+		}
+	}
 	return (0);
 }
 
-char	*ft_strncat(char *dest, char *src, unsigned int nb)
+//stocke dans env->key tout ce qui est avant le = si il y a une valeur ou
+//jusqau = si il y a pas de valeur
+int	get_key(char *arg, t_env *env)
 {
-	unsigned int	i;
-	unsigned int	j;
+	int		i;
 
-	i = 0;
-	while (dest[i] != '\0')
-		i++;
-	j = 0;
-	while (src[j] != '\0' && j < nb)
+	i = -1;
+	env->key = ft_strdup(arg);
+	if (!env->key)
+		return (1);
+	if (ft_strchr(env->key, '='))
 	{
-		dest[i + j] = src[j];
-		j++;
+		while (env->key[++i] != '=')
+			;
+		if (ft_strlen(env->key) + 1 == i)
+			return (1);
+		env->key[i] = '\0';
 	}
-	dest[i + j] = '\0';
-	return (dest);
+	return (0);
+}
+
+//verifie si il y a pas = ou si dernier caractere est =
+int	check_equal(char *arg)
+{
+	if (!ft_strchr(arg, '='))
+		return (1);
+	if (arg[ft_strlen(arg) - 1] == '=')
+		return (1);
+	return (0);
 }
